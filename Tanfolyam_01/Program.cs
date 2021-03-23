@@ -378,6 +378,9 @@ namespace Tanfolyam_01
         }
         static void Nyolcadik_project_Elso_prg() // Butor cikkszamok és árak ellenörzése
         {
+            /*************************************************************/
+            // Butor cikkszamok és árak ellenörzése
+            /*************************************************************/
             int darabszam;
             Console.WriteLine("Irja be a darabszamot!");
             darabszam = Convert.ToInt32(Console.ReadLine());
@@ -394,18 +397,58 @@ namespace Tanfolyam_01
                 Console.Clear();               
             }
 
-
-            
-
+            // Eldontes
             bool voltKoztesTermek = false;  // alapból hamis
             int j = 0;
-            while ( (j <= darabszam) && !( (arak[j] > 10000) && (arak[j] < 15000) ))
+            while ( (j < darabszam) && !( (arak[j] > 10000) && (arak[j] < 15000) ))
             {
                 j++;
-                voltKoztesTermek = (j <= darabszam);
+            }
+            voltKoztesTermek = (j < darabszam);
+
+            // Szetvalogatas
+            string[] olcsobb = new string[darabszam], kozepes = new string[darabszam], dragabb = new string[darabszam]; 
+            int o = 0, k = 0, d = 0;
+
+            for (int i = 0; i < darabszam; i++)
+            {
+                if (arak[i] < 30000)
+                {
+                    olcsobb[o] = cikkszam[i];
+                    o++;
+                }
+                else if (arak[i] >= 30000 && arak[i] <= 50000)
+                {
+                    kozepes[k] = cikkszam[i];
+                    k++;
+                }
+                else
+                {
+                    dragabb[d] = cikkszam[i];
+                    d++;
+                }  
             }
 
+            int max = 0;
+            for (int e = 0; e < darabszam; e++)
+            {
+                if (arak[max] < arak[e])
+                {
+                    max = e;
+                }
+            }
 
+            Console.Clear();
+            if (voltKoztesTermek)
+            {
+                Console.WriteLine("Az arak kozott volt 10-15 ezer közötti termék!\n");
+            }
+            else
+            {
+                Console.WriteLine("Az arak kozott nem volt 10-15 ezer közötti termék!\n");
+            }
+            Console.WriteLine("A legmagasabb aru termek ara: {0}", arak[max]);
+            Console.ReadKey(); 
         }
     }
 }
