@@ -8,6 +8,18 @@ namespace Tanfolyam_01
 {
     class Program
     {
+        struct Tanulo
+        {
+            // A mezőknek egy fontos tulajdonsága a láthatósági szint amivel később fogunk foglalkozni (az osztáyoknál) --> Minden mező láthatatlan alapvetően a külvilág felé, tehát gondoskodni kell róla, hogy látható legyen
+            public string nev; // a leírás egy tanulóra kell vonatkozzon
+            public byte jegy; // Azokat a vátozókat amiket itt létrehozzunk mezőnek / field-nek nevezzük.
+        }
+
+        struct Butor
+        {
+            public string cikkszam; // cikkszamok számok és karakterek
+            public int arak; // az árak
+        }
         static void Main(string[] args)
         {
 
@@ -32,10 +44,12 @@ namespace Tanfolyam_01
             //Hetedik_project_Harmadik_prg();
             //Hetedik_project_Negyedik_prg();
             //Hetedik_project_Otodik_prg();
-            Hetedik_project_Hatodik_prg();
+            //Hetedik_project_Hatodik_prg();
 
             //Nyolcadik_project_Elso_prg();
             //Nyolcadik_project_masodik_prg();
+            Nyolcadik_project_harmadik_prg();
+            //Nyolcadik_project_negyedik_prg();
         }
 
         static void Elso_project_Hello_word()
@@ -341,8 +355,8 @@ namespace Tanfolyam_01
                 do
                 {
                     bekert = Console.ReadKey().KeyChar;
-                //} while (bekert < 49 || bekert > 53); // 49 - 1 es 53 - 5 
-                } while ( bekert < '1' || bekert > '5'); // ugyanaz jelenti mint fent csak a nyelvre bizzuk a kiertekelest 
+                    //} while (bekert < 49 || bekert > 53); // 49 - 1 es 53 - 5 
+                } while (bekert < '1' || bekert > '5'); // ugyanaz jelenti mint fent csak a nyelvre bizzuk a kiertekelest 
 
                 jegyek[i] = Convert.ToByte(bekert.ToString());
                 Console.Clear();
@@ -355,7 +369,7 @@ namespace Tanfolyam_01
                 atlag += jegyek[i]; // atlag = atlag + jegyek[i];
             }
             atlag /= letszam; // atlag = atlag / letszam;
-                       
+
             Console.WriteLine("A megadott tanulok átlaga: " + atlag);
 
             //Legjobb es legrosszabb tanulo meghatarozasa
@@ -372,13 +386,13 @@ namespace Tanfolyam_01
                     max = jegyek[i];
                     max_index = i;
                 }
-                
+
                 if (jegyek[i] < min) // legrosszabb tanulo
                 {
                     min = jegyek[i];
                     min_index = i;
                 }
-                
+
             }
             Console.WriteLine("\nA Legjobb tanulo: {0} jegye: {1}", nevek[max_index], max);
             Console.WriteLine("\nA Legjobb tanulo: {0} jegye: {1}", nevek[min_index], min);
@@ -397,7 +411,7 @@ namespace Tanfolyam_01
             string[] cikkszam = new string[darabszam];
             int[] arak = new int[darabszam];
             //int darabszan = 0;
-            int[ , ] indexek = new int[3, arak.Length];  //  ketdimenzios tomb olcso 1, kozoeoes 2, draga 0, oszlopopkkal
+            int[,] indexek = new int[3, arak.Length];  //  ketdimenzios tomb olcso 1, kozoeoes 2, draga 0, oszlopopkkal
 
             for (int i = 0; i < darabszam; i++)
             {
@@ -405,20 +419,20 @@ namespace Tanfolyam_01
                 cikkszam[i] = Convert.ToString(Console.ReadLine());
                 Console.WriteLine("Irja be az {0}. arat:  ", i + 1);
                 arak[i] = Convert.ToInt32(Console.ReadLine());
-                Console.Clear();               
+                Console.Clear();
             }
 
             // Eldontes
             bool voltKoztesTermek = false;  // alapból hamis
             int j = 0;
-            while ( (j < darabszam) && !( (arak[j] > 10000) && (arak[j] < 15000) ))
+            while ((j < darabszam) && !((arak[j] > 10000) && (arak[j] < 15000)))
             {
                 j++;
             }
             voltKoztesTermek = (j < darabszam);
 
             // Szetvalogatas
-            string[] olcsobb = new string[darabszam], kozepes = new string[darabszam], dragabb = new string[darabszam]; 
+            string[] olcsobb = new string[darabszam], kozepes = new string[darabszam], dragabb = new string[darabszam];
             int o = 0, k = 0, d = 0;
 
             for (int i = 0; i < darabszam; i++)
@@ -426,7 +440,7 @@ namespace Tanfolyam_01
                 if (arak[i] < 30000)
                 {
                     olcsobb[o] = cikkszam[i];
-                    indexek[0, o] = i + 1; 
+                    indexek[0, o] = i + 1;
                     o++;
                 }
                 else if (arak[i] >= 30000 && arak[i] <= 50000)
@@ -440,7 +454,7 @@ namespace Tanfolyam_01
                     dragabb[d] = cikkszam[i];
                     indexek[2, d] = i + 1;
                     d++;
-                }  
+                }
             }
 
             int max = 0;
@@ -462,19 +476,19 @@ namespace Tanfolyam_01
                 Console.WriteLine("Az arak kozott nem volt 10-15 ezer közötti termék!\n");
             }
             Console.WriteLine("A legmagasabb aru termek ara: {0}\n", arak[max]);
-           
+
 
             Console.WriteLine("\n\nOlcso aruak:\n");
             Console.WriteLine("    ----------------------------");
             Console.WriteLine("\tCikkszam:\tAr:");
             Console.WriteLine("    ----------------------------");
-            for (int  i = 0;  i < darabszam;  i++)
+            for (int i = 0; i < darabszam; i++)
             {
                 if (indexek[0, i] != 0)
                 {
                     Console.WriteLine("\t{0}\t\t{1}", olcsobb[i], arak[indexek[0, i] - 1]);
                 }
-                
+
             }
 
             Console.WriteLine("\n\nKozepes aruak:\n");
@@ -547,7 +561,7 @@ namespace Tanfolyam_01
                     olcsobb[o] = cikkszam[i];
                     o++;
                 }
-                else if (/*arak[i] >= 30000 &&*/ arak[i] <= 50000)  // nem érdekes mert már a 30000 egyzser le volt kérdezve
+                else if (/*arak[i] >= 30000 &&*/ arak[i] <= 50000)  // nem érdekes mert már a 30000 egyszer le volt kérdezve
                 {
                     kozepes[k] = cikkszam[i];
                     k++;
@@ -586,9 +600,9 @@ namespace Tanfolyam_01
             }
 
             Console.WriteLine("A 30000-nél drágáb, de 50000-nél olcsóbb bútorok:");
-            if (k > 0) 
+            if (k > 0)
             {
-                for (int i = 0; i < k; i++) 
+                for (int i = 0; i < k; i++)
                 {
                     Console.WriteLine("\t- {0}", kozepes[i]);
                 }
@@ -616,5 +630,186 @@ namespace Tanfolyam_01
             Console.ReadKey();
 
         }
+        static void Nyolcadik_project_harmadik_prg() // Butor cikkszamok, strukúrákba rendezve
+        {
+            /*************************************************************/
+            // Butor cikkszamok és árak ellenörzése
+            /*************************************************************/
+        
+            Console.WriteLine("Adja meg hány bútor lesz a raktárban!");
+            Butor[] butorok = new Butor[Convert.ToInt32(Console.ReadLine())];
+            Console.Clear();
+
+            for (int i = 0; i < butorok.Length; i++)
+            {
+                Console.WriteLine("Irja be az {0}. cikkszamot:  ", i + 1);
+                butorok[i].cikkszam = Convert.ToString(Console.ReadLine());
+                Console.WriteLine("Irja be az {0}. arat:  ", i + 1);
+                butorok[i].arak = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+            }
+
+            // Eldontes
+            int j = 0;
+            while ((j < butorok.Length) && !((butorok[j].arak >= 10000) && (butorok[j].arak <= 15000)))
+            {
+                j++;
+            }
+            bool voltKoztesTermek = (j < butorok.Length);
+
+            // Szetvalogatas
+            Butor[] olcsobb = new Butor[butorok.Length];
+            Butor[] kozepes = new Butor[butorok.Length];
+            Butor[] dragabb = new Butor[butorok.Length];
+            int o = 0, k = 0, d = 0;
+
+            for (int i = 0; i < butorok.Length; i++)
+            {
+                if (butorok[i].arak < 30000)
+                {
+                    olcsobb[i].cikkszam = butorok[i].cikkszam;
+                    o++;
+                }
+                else if (butorok[i].arak <= 50000)  // nem érdekes mert már a 30000 egyszer le volt kérdezve
+                {
+                    kozepes[k].cikkszam = butorok[i].cikkszam;
+                    k++;
+                }
+                else
+                {
+                    dragabb[d].cikkszam = butorok[i].cikkszam;
+                    d++;
+                }
+            }
+
+            int max = 0;
+            for (int i = 1; i < butorok.Length; i++)  // i = 1 mert ha 0 lenne akkor az első az lenne, hogy önnmagával hasonlítaná össze
+            {
+                if (butorok[max].arak < butorok[i].arak)
+                {
+                    max = i;
+                }
+            }
+
+            Console.Clear();
+            Console.WriteLine("A megedott bútorok között {0} 10000 és 15000 közöti árrla rendelkező.", voltKoztesTermek ? "volt" : "nem volt");
+            Console.WriteLine("Az ar szerinti bontás eredmény:");
+
+            Console.WriteLine("A 30000-nél olcsóbb bútorok:");
+            if (o > 0)
+            {
+                for (int i = 0; i < o; i++)
+                {
+                    Console.WriteLine("\t- {0}", olcsobb[i].cikkszam);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\tNem volt ilyen bútor");
+            }
+
+            Console.WriteLine("A 30000-nél drágáb, de 50000-nél olcsóbb bútorok:");
+            if (k > 0)
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    Console.WriteLine("\t- {0}", kozepes[i].cikkszam);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\tNem volt ilyen bútor");
+            }
+
+            Console.WriteLine("A 50000-nél drágább bútorok:");
+            if (d > 0)
+            {
+                for (int i = 0; i < d; i++)
+                {
+                    Console.WriteLine("\t- {0}", dragabb[i].cikkszam);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\tNem volt ilyen bútor");
+            }
+
+            Console.WriteLine("A megadott bútorok közül a legdrágább: " + butorok[max].cikkszam);
+            Console.WriteLine("");
+            Console.ReadKey();
+
+        }
+        static void Nyolcadik_project_negyedik_prg() // Tanulók jegyei strukúrákban rendezve
+        {
+            Console.WriteLine("Adja meg hány tanuló lesz!");
+            // Eddig itt minden esetben lementettük a létszámot külön vátozóba, de igazából erre nincs szükség, mert a tömb tudja magától, hogy mekkora
+            Tanulo[] tanulok = new Tanulo[Convert.ToInt32(Console.ReadLine())];
+            Console.Clear();
+            // tanulok.Length --> Létszám
+            for (int i = 0; i < tanulok.Length; i++)
+            {
+                Console.WriteLine("Adja meg a(z) {0}. tanuló nevét!:", i + 1);
+                tanulok[i].nev = Console.ReadLine();
+                Console.WriteLine("Adja meg a(z) {0} tanuló ({1}) jegyét!:", i + 1, tanulok[i].nev);
+                tanulok[i].jegy = Convert.ToByte(Console.ReadKey().KeyChar.ToString());
+                Console.Clear();
+            }
+
+            // Átlagszámítás
+            double atlag = 0;
+            for (int i = 0; i < tanulok.Length; i++)
+            {
+                atlag += tanulok[i].jegy;
+            }
+            atlag /= tanulok.Length;
+            // Itt az érték szerinti megoldás is működik mivel a komplex Tanulo típus a nevet és a jegyet is tárolja - így ha megtalálom a tnault akkor tudom a jegyét és a nevét is
+
+            //----------------------------------
+            // Megoldás érték szerint
+            //-----------------------------------
+
+            Tanulo min = tanulok[0], max = tanulok[0]; // Itt az érték szerinti megoldásnál az elején a tömb első elemét mentem ki mint referencia elem
+            for (int i = 0; i < tanulok.Length; i++)
+            {
+                if (min.jegy < tanulok[i].jegy)
+                {
+                    min = tanulok[i]; // A tlejes tanulot lementem névvel és jeggyel együtt
+                }
+
+                if (max.jegy > tanulok[i].jegy)
+                {
+                    max = tanulok[i]; // A tlejes tanulot lementem névvel és jeggyel együtt
+                }
+            }
+
+            //----------------------------------
+            // Megoldás index szerint
+            //-----------------------------------
+
+            int minIndex = 0, maxIndex = 0; // Itt csak indexet tárolunk
+            for (int i = 0; i < tanulok.Length; i++)
+            {
+                if (tanulok[maxIndex].jegy < tanulok[i].jegy)
+                {
+                    maxIndex = i;
+                }
+
+                if (tanulok[minIndex].jegy > tanulok[i].jegy)
+                {
+                    minIndex = i;
+                }
+
+
+            }
+            // Kiiratás
+
+            Console.WriteLine("A megadott tanulók átlaga: " + atlag);
+            Console.WriteLine("A legjobb tanuló érték szerint: " + max.nev);
+            Console.WriteLine("A rosszabb tanuló érték szerint: " + min.nev);
+            Console.WriteLine("A legjobb tanuló index szerint: " + tanulok[maxIndex].nev);
+            Console.WriteLine("A rosszabb tanuló index szerint: " + tanulok[minIndex].nev);
+            Console.ReadKey();
+        }
+
     }
 }
