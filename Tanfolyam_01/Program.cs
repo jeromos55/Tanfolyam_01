@@ -48,8 +48,9 @@ namespace Tanfolyam_01
 
             //Nyolcadik_project_Elso_prg();
             //Nyolcadik_project_masodik_prg();
-            Nyolcadik_project_harmadik_prg();
+            Nyolcadik_project_harmadik_prg(); // javítani mert rossz a kiiratás
             //Nyolcadik_project_negyedik_prg();
+            //Kilencedik_porject_elso_prg();
         }
 
         static void Elso_project_Hello_word()
@@ -333,7 +334,7 @@ namespace Tanfolyam_01
             Console.WriteLine("A megadott szamok kozul a legnagyobb: " + maxElem);
             Console.ReadKey();
         }
-        static void Hetedik_project_Hatodik_prg() // Tanulok jegye es neve alapján az átlag, legrosszab, legjobb jegyek kiiratasa, bekert adatok védelme
+        static void Hetedik_project_Hatodik_prg() // Tanulok jegye es neve alapján az átlag, legrosszab, legjobb jegyek kiiratasa, bekert adatok védelmével
         {
             /*************************************************************/
             // Tanulo adatainak bekerese es atlagolasa
@@ -391,9 +392,9 @@ namespace Tanfolyam_01
                 {
                     min = jegyek[i];
                     min_index = i;
-                }
-
+                }Console.SetCursorPosition(0, Console.CursorTop);
             }
+            // Kiiratas
             Console.WriteLine("\nA Legjobb tanulo: {0} jegye: {1}", nevek[max_index], max);
             Console.WriteLine("\nA Legjobb tanulo: {0} jegye: {1}", nevek[min_index], min);
             Console.ReadKey();
@@ -520,7 +521,7 @@ namespace Tanfolyam_01
 
             Console.ReadKey();
         }
-        static void Nyolcadik_project_masodik_prg() // Butor cikkszamok és árak ellenörzése, bevitel javitva es index tábla nélkül tanárral megoldva
+        static void Nyolcadik_project_masodik_prg() // Butor cikkszamok és árak ellenörzése, tanárral megoldva
         {
             /*************************************************************/
             // Butor cikkszamok és árak ellenörzése
@@ -630,12 +631,12 @@ namespace Tanfolyam_01
             Console.ReadKey();
 
         }
-        static void Nyolcadik_project_harmadik_prg() // Butor cikkszamok, strukúrákba rendezve
+        static void Nyolcadik_project_harmadik_prg() // Butor cikkszamok, strukúrákba rendezve, önnálóan és a tanárral befejezve
         {
             /*************************************************************/
             // Butor cikkszamok és árak ellenörzése
             /*************************************************************/
-        
+
             Console.WriteLine("Adja meg hány bútor lesz a raktárban!");
             Butor[] butorok = new Butor[Convert.ToInt32(Console.ReadLine())];
             Console.Clear();
@@ -643,9 +644,35 @@ namespace Tanfolyam_01
             for (int i = 0; i < butorok.Length; i++)
             {
                 Console.WriteLine("Irja be az {0}. cikkszamot:  ", i + 1);
-                butorok[i].cikkszam = Convert.ToString(Console.ReadLine());
-                Console.WriteLine("Irja be az {0}. arat:  ", i + 1);
-                butorok[i].arak = Convert.ToInt32(Console.ReadLine());
+                bool voltBekeres = false;
+                do
+                {
+                    if (voltBekeres)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(" A magadott érték hibás! A cikkszám nem lehet üres!");
+                        Console.ResetColor();
+                    }
+                    butorok[i].cikkszam = Console.ReadLine();
+                    voltBekeres = true;
+                    //} while ( butrorok[i].cikkszam == ""); // "" = üres szöveg
+                    //} while ( butrorok[i].cikkszam ==string.Empty); // string.Empty = üres szöveg
+                } while (string.IsNullOrWhiteSpace(butorok[i].cikkszam)); // string.IsNullOrWhiteSpace ("szöveg") = megadja, hogy a szöveh üres, vagy szóköyöket tratalmaz csupán
+                
+                Console.WriteLine("Irja be az {0}. bútor ({1}) árát:  ", i + 1, butorok[i].cikkszam);
+                voltBekeres = false;
+                do
+                {
+                    if (voltBekeres)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("A megadott ár hibás! Az ár minimum 1 Ft kell legyen!");
+                        Console.ResetColor();
+                    }
+                    butorok[i].arak = Convert.ToInt32(Console.ReadLine());
+                    voltBekeres = true;
+                    
+                } while (butorok[i].arak < 1);
                 Console.Clear();
             }
 
@@ -667,27 +694,27 @@ namespace Tanfolyam_01
             {
                 if (butorok[i].arak < 30000)
                 {
-                    olcsobb[i].cikkszam = butorok[i].cikkszam;
+                    olcsobb[i] = butorok[i];
                     o++;
                 }
                 else if (butorok[i].arak <= 50000)  // nem érdekes mert már a 30000 egyszer le volt kérdezve
                 {
-                    kozepes[k].cikkszam = butorok[i].cikkszam;
+                    kozepes[k] = butorok[i];
                     k++;
                 }
                 else
                 {
-                    dragabb[d].cikkszam = butorok[i].cikkszam;
+                    dragabb[d] = butorok[i];
                     d++;
                 }
             }
 
-            int max = 0;
+            Butor max = new Butor();
             for (int i = 1; i < butorok.Length; i++)  // i = 1 mert ha 0 lenne akkor az első az lenne, hogy önnmagával hasonlítaná össze
             {
-                if (butorok[max].arak < butorok[i].arak)
+                if (max.arak < butorok[i].arak)
                 {
-                    max = i;
+                    max = butorok[i];
                 }
             }
 
@@ -700,7 +727,7 @@ namespace Tanfolyam_01
             {
                 for (int i = 0; i < o; i++)
                 {
-                    Console.WriteLine("\t- {0}", olcsobb[i].cikkszam);
+                    Console.WriteLine($"\t- {olcsobb[i].cikkszam} ({olcsobb[i].arak} FT)");
                 }
             }
             else
@@ -713,7 +740,7 @@ namespace Tanfolyam_01
             {
                 for (int i = 0; i < k; i++)
                 {
-                    Console.WriteLine("\t- {0}", kozepes[i].cikkszam);
+                    Console.WriteLine($"\t- {kozepes[i].cikkszam} ({kozepes[i].arak} FT)");
                 }
             }
             else
@@ -726,7 +753,7 @@ namespace Tanfolyam_01
             {
                 for (int i = 0; i < d; i++)
                 {
-                    Console.WriteLine("\t- {0}", dragabb[i].cikkszam);
+                    Console.WriteLine($"\t- {dragabb[i].cikkszam} ({dragabb[i].arak} FT)");
                 }
             }
             else
@@ -734,8 +761,12 @@ namespace Tanfolyam_01
                 Console.WriteLine("\tNem volt ilyen bútor");
             }
 
-            Console.WriteLine("A megadott bútorok közül a legdrágább: " + butorok[max].cikkszam);
+            Console.WriteLine("A megadott bútorok közül a legdrágább: " + max.cikkszam + " - " + max.arak + " FT");
             Console.WriteLine("");
+            // string a = §"gdgdgdggdgd {max.ar} fgdfgdggggd {m}";  // c# 6.0 <=
+            // string a = "fsfdfsf" + max.ar + "ggdfgfgdg" + m;
+            // string a = string.Format("gdfgdgdg {0} gdgdgdgd {1}", max.ar, m );
+
             Console.ReadKey();
 
         }
@@ -809,6 +840,84 @@ namespace Tanfolyam_01
             Console.WriteLine("A legjobb tanuló index szerint: " + tanulok[maxIndex].nev);
             Console.WriteLine("A rosszabb tanuló index szerint: " + tanulok[minIndex].nev);
             Console.ReadKey();
+        }
+
+        static void Kilencedik_porject_elso_prg() // Nevek bekérése és szátválogatása
+        {
+            Console.WriteLine("Adja meg, hogy hány név lesz!");
+            string[] nevek = new string[Convert.ToInt32(Console.ReadLine())];
+            for (int i = 0; i < nevek.Length; i++)
+            {
+                Console.WriteLine($"Adaj meg a(z) {i + 1}. nevet!");
+                bool voltBekeres = false;
+                do
+                {
+                    if (voltBekeres)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("A megadott náv hibás lagalább 1 karakter megadása kötelező!");
+                        Console.ResetColor();
+                    }
+                    nevek[i] = Console.ReadLine();
+                    voltBekeres = true;
+                } while (string.IsNullOrWhiteSpace(nevek[i]));
+            }
+
+            // Hánnnny M     bbbbetúvel kezdődő név van a - megszámlámlás
+            int mBetusNevekszama = 0;
+            for (int i = 0; i < nevek.Length; i++)
+            {
+                // if (nevek[i].ToCharArray()[0] == 'M') // ez is jó
+                if (nevek[i][0] == 'M')
+                {
+                    mBetusNevekszama++;
+                }
+            }
+
+            // Van-e Jkab nevű ember - eldöntés
+            int j = 0;
+            while (j < nevek.Length && nevek[j] != "Jakab")
+            {
+                j++;
+            }
+            bool voltJakab = j < nevek.Length;
+
+            // Első H betű mentén való szétválogatás - Kiválasztás + Szétválogatás --> egybeépítve
+            // Az egybépítés során minden esetben a fixen hosszabb lefutással rendelkezőbe építjük a rövidebb lefutással rendelkezőt
+            string[] elotte = new string[nevek.Length], utana = new string[nevek.Length];
+            int k = 0, l = 0;
+            bool voltH = false;
+            for (int i = 0; i < nevek.Length; i++)
+            {
+                // Eldöntés beépítve
+                if (!voltH && nevek[i][0] == 'H')
+                {
+                    voltH = true;
+                }
+                // Szétválogatás
+                if (!voltH)
+                {
+                    elotte[k] = nevek[i];
+                    k++;
+                }
+                else
+                {
+                    utana[l] = nevek[i];
+                    l++;
+                }
+            }
+
+            // Kiíratás
+            Console.WriteLine((voltJakab ? "Volt" : "Nem volt") + " Jakab a nevek között!");
+            Console.WriteLine("A megadott nevek között {0} db 'M' betűvel kezdődő név volt!", mBetusNevekszama);
+            Console.WriteLine("Az első 'H' betűvel kezdődő név elötti nevek:");
+            if (k > 0)
+            {
+                for (int i = 0; i < length; i++)
+                {
+
+                }
+            }
         }
 
     }
