@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,45 +15,11 @@ namespace Tanfolyam_01
             public string nev; // a leírás egy tanulóra kell vonatkozzon
             public byte jegy; // Azokat a vátozókat amiket itt létrehozzunk mezőnek / field-nek nevezzük.
         }
-
         struct Butor
         {
             public string cikkszam; // cikkszamok számok és karakterek
             public int arak; // az árak
         }
-        static void Main(string[] args)
-        {
-
-            //Elso_project_Hello_word();  //Hello word
-
-            //Masodik_project_Elso_prg();  
-            //Masodik_project_Masodik_prg();
-
-            //Harmadik_project_Elso_prg();
-            //Harmadik_project_Masodik_prg();
-            //Harmadik_project_Harmadik_prg();
-
-            //Negyedik_project_Elso_prg();
-            //Negyedik_project_Masodik_prg();
-
-            //Otodik_project_Elso_prg();
-
-            //Hatodik_project_Elso_prg();   
-
-            //Hetedik_project_Elso_prg();
-            //Hetedik_project_Masodik_prg();
-            //Hetedik_project_Harmadik_prg();
-            //Hetedik_project_Negyedik_prg();
-            //Hetedik_project_Otodik_prg();
-            //Hetedik_project_Hatodik_prg();
-
-            //Nyolcadik_project_Elso_prg();
-            //Nyolcadik_project_masodik_prg();
-            Nyolcadik_project_harmadik_prg(); // javítani mert rossz a kiiratás
-            //Nyolcadik_project_negyedik_prg();
-            //Kilencedik_porject_elso_prg();
-        }
-
         static void Elso_project_Hello_word()
         {
             /*************************************************************/
@@ -841,8 +808,7 @@ namespace Tanfolyam_01
             Console.WriteLine("A rosszabb tanuló index szerint: " + tanulok[minIndex].nev);
             Console.ReadKey();
         }
-
-        static void Kilencedik_porject_elso_prg() // Nevek bekérése és szátválogatása
+        static void Kilencedik_porject_elso_prg() // Nevek bekérése és szétválogatása
         {
             Console.WriteLine("Adja meg, hogy hány név lesz!");
             string[] nevek = new string[Convert.ToInt32(Console.ReadLine())];
@@ -855,7 +821,7 @@ namespace Tanfolyam_01
                     if (voltBekeres)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("A megadott náv hibás lagalább 1 karakter megadása kötelező!");
+                        Console.WriteLine("A megadott név hibás lagalább 1 karakter megadása kötelező!");
                         Console.ResetColor();
                     }
                     nevek[i] = Console.ReadLine();
@@ -906,19 +872,204 @@ namespace Tanfolyam_01
                     l++;
                 }
             }
-
+            Console.Clear();
             // Kiíratás
             Console.WriteLine((voltJakab ? "Volt" : "Nem volt") + " Jakab a nevek között!");
             Console.WriteLine("A megadott nevek között {0} db 'M' betűvel kezdődő név volt!", mBetusNevekszama);
             Console.WriteLine("Az első 'H' betűvel kezdődő név elötti nevek:");
             if (k > 0)
             {
-                for (int i = 0; i < length; i++)
+                for (int i = 0; i < k; i++)
                 {
-
+                    Console.WriteLine("\t- " + elotte[i]);
                 }
+            }
+            else
+            {
+                Console.WriteLine("\tNem volt ilyen név!");
+            }
+            Console.WriteLine("Az első 'H' betővel kezdődő név és azt követő nevek:");
+            if (l > 0)
+            {
+                for (int i = 0; i < l; i++)
+                {
+                    Console.WriteLine("\t- " + utana[i]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\tNem volt ilyen név!");
+            }
+            Console.ReadKey();
+        }
+        static void Kilencedik_porject_masodik_prg()  // Lineáris és Bináris keresés időben való lemérése
+        {
+            /*************************************************************/
+            // Binaris és lineéris keresés lefutási idők mérése 
+            /*************************************************************/
+
+            // Ahhoz, hogy az időt letudjuk mérni egy hatalmas tömb kell --> több száz MB / több GB méretű
+            //int[] tomb = new int[int.MaxValue]; // nyolc GB méretű lenne
+            Console.WriteLine("Kérem várjon ...");
+            int[] tomb = new int[int.MaxValue / 7];
+            Random r = new Random(); // ezzel létrehoztuk a véletlenszámgenerátort
+            tomb[0] = r.Next(1, 11); // 1..10
+            for (int i = 1; i < tomb.Length; i++)
+            {
+                tomb[i] = tomb[i - 1] + r.Next(1, 6) - 1; // a tömb i-edik eleme legyen egyenlő a tömb előző elem + 0..4 egy véletlen szám -- monoton növekvő
+            }
+            Console.Clear();
+            Console.WriteLine("Adja meg a keresendő elemet. (A tartomány: {0} ... {1})", tomb[0], tomb[tomb.Length - 1]);
+            int keresett = Convert.ToInt32(Console.ReadLine());
+            Stopwatch ora = new Stopwatch(); // Ezzel létrhoztunk egy stoppert
+
+            // lineáris keresés
+            ora.Start();
+            int j = 0;
+            while (j < tomb.Length && tomb[j] != keresett)
+            {
+                j++;
+            }
+            ora.Stop();
+            Console.WriteLine("A lineáris keresés {0} ms alatt futott le, {1} lefutása volt és az értéket {2}.", ora.ElapsedMilliseconds, j, (j < tomb.Length && tomb[j] == keresett) ? "megtalálta" : "nem találta meg");
+            Console.ReadKey();
+
+            // bináris keresás
+            ora.Restart();
+            int e = 0, u = tomb.Length - 1, k;
+            j = 0;
+            do
+            {
+                k = (e + u) / 2;
+                if (tomb[k] > keresett)
+                {
+                    u = k - 1;
+                }
+                else if (tomb[k] < keresett)
+                {
+                    e = k + 1;
+                }
+                j++;
+            } while (e <= u && tomb[k] != keresett);
+            ora.Stop();
+            Console.WriteLine("A bináris keresés {0} ms alatt futott le, {1} lefutása volt és az értéket {2}.", ora.ElapsedMilliseconds, j, (e <= u) ? "megtalálta" : "nem találta meg");
+            Console.ReadKey();
+        }
+        static void Kilencedik_project_harmadik_prg()
+        {
+            /*************************************************************/
+            // Negy alapmuvelet veegrehajtasa metodussal main fuggveny
+            /*************************************************************/
+
+            Console.WriteLine("Adja meg az első operandust!");
+            int szam1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Adja meg az második operandust!");
+            int szam2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Adja meg a műveletet!");
+            char muvelet = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+            double eredmeny = Kilencedik_porject_harmadik_prg(szam1, szam2, muvelet); // negy alap múvelet methodus
+            if (double.IsNaN(eredmeny))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("A megadott művelet hejtelen!");
+                Console.ResetColor();
+            }
+            else 
+            {
+                Console.WriteLine("Az eredmény: " + eredmeny);
+            }
+            Console.ReadKey();
+        }
+        static double Kilencedik_porject_harmadik_prg(int a, int b, char muvelet) // Negy alapmuvelet vegrehajtasa metodussal
+        {
+            /*************************************************************/
+            // Negy alapmuvelet veegrehajtasa metodussal
+            /*************************************************************/
+
+            switch (muvelet)
+            {
+                case '+' :
+                    return a + b;
+                case '-':
+                    return a - b;
+                case '*':
+                    return a * b;
+                case '/':
+                    //return a / b;
+                    //return Convert.ToDouble(a) / b; // Ha az elso szamot konvertaljuk akkor az opertor is double lesz es igy a vissza teresi ertek is az lesz es a masodik szam integer tehat belefer a double-ba
+                    return a * 1.0 / b; // Mostmar a ket egesz szam hanyadosa tortkent all elo es a nullaval valo osztas sem okoz problemat... --> Mivel a double a matematikai analizisben hasznalt specialsi erteket is tartalmazza, igy amikor ket double szamot lehosztok egy massal, akkor az eredmeny nem egzakt eredmeny, hanem kovergalt eredmeny lesz ( tehat azt kapom meg, hogy az ertek hova konvergal) --> 4.0 / 0.0 --> tehat 4-et leosztom egy 0-at vegtelenul megkozelito ertekkel --> Pozitiv vegtelen az eredmeny -4.0 / 0.0 --> pedig negativ vegtelen es 0 / 0 --> NaN (Not a Number)
+                default:
+                    //return 0; // Ebbol nem jovunk ra, hogy ez egy hibas lefutas
+                    // Consolee.WriteLine("Hibas!"); /// Minden keppen ertekkel kell visszternunk
+                    return double.NaN;
             }
         }
 
+        /*************************************************************/
+        // Main metodus parameterek kiiratasa
+        /*************************************************************/
+
+        //static void Main(string[] args)
+        //{
+        //    // Valami
+
+        //    if (args.Length > 0)
+        //    {
+        //        for (int i = 0; i < args.Length; i++)
+        //        {
+        //            Console.WriteLine("\t -" + args[i]);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Nem erkezett parameter a programhoz");
+        //    }
+        //    Console.ReadKey();
+        //}
+
+        /*************************************************************/
+
+
+        static void Main(string[] args)
+        {
+
+            //Elso_project_Hello_word();  //Hello word
+
+            //Masodik_project_Elso_prg();  
+            //Masodik_project_Masodik_prg();
+
+            //Harmadik_project_Elso_prg();
+            //Harmadik_project_Masodik_prg();
+            //Harmadik_project_Harmadik_prg();
+
+            //Negyedik_project_Elso_prg();
+            //Negyedik_project_Masodik_prg();
+
+            //Otodik_project_Elso_prg();
+
+            //Hatodik_project_Elso_prg();   
+
+            //Hetedik_project_Elso_prg();
+            //Hetedik_project_Masodik_prg();
+            //Hetedik_project_Harmadik_prg();
+            //Hetedik_project_Negyedik_prg();
+            //Hetedik_project_Otodik_prg();
+            //Hetedik_project_Hatodik_prg();
+
+            //Nyolcadik_project_Elso_prg();
+            //Nyolcadik_project_masodik_prg();
+            //Nyolcadik_project_harmadik_prg();
+            //Nyolcadik_project_negyedik_prg();
+
+            //Kilencedik_porject_elso_prg();
+            //Kilencedik_porject_masodik_prg();
+            Kilencedik_project_harmadik_prg();
+            //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 3, '+'));
+            //Console.WriteLine(Kilencedik_porject_harmadik_prg(12, 8, '/'));
+            //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 0, '/'));
+            //Console.WriteLine(Kilencedik_porject_harmadik_prg(-5, 0, '/'));
+            //Console.ReadKey();
+        }
     }
 }
