@@ -20,6 +20,7 @@ namespace Tanfolyam_01
             public string cikkszam; // cikkszamok számok és karakterek
             public int arak; // az árak
         }
+
         static void Elso_project_Hello_word()
         {
             /*************************************************************/
@@ -359,7 +360,8 @@ namespace Tanfolyam_01
                 {
                     min = jegyek[i];
                     min_index = i;
-                }Console.SetCursorPosition(0, Console.CursorTop);
+                }
+                Console.SetCursorPosition(0, Console.CursorTop);
             }
             // Kiiratas
             Console.WriteLine("\nA Legjobb tanulo: {0} jegye: {1}", nevek[max_index], max);
@@ -625,7 +627,7 @@ namespace Tanfolyam_01
                     //} while ( butrorok[i].cikkszam == ""); // "" = üres szöveg
                     //} while ( butrorok[i].cikkszam ==string.Empty); // string.Empty = üres szöveg
                 } while (string.IsNullOrWhiteSpace(butorok[i].cikkszam)); // string.IsNullOrWhiteSpace ("szöveg") = megadja, hogy a szöveh üres, vagy szóköyöket tratalmaz csupán
-                
+
                 Console.WriteLine("Irja be az {0}. bútor ({1}) árát:  ", i + 1, butorok[i].cikkszam);
                 voltBekeres = false;
                 do
@@ -638,7 +640,7 @@ namespace Tanfolyam_01
                     }
                     butorok[i].arak = Convert.ToInt32(Console.ReadLine());
                     voltBekeres = true;
-                    
+
                 } while (butorok[i].arak < 1);
                 Console.Clear();
             }
@@ -955,33 +957,63 @@ namespace Tanfolyam_01
             Console.WriteLine("A bináris keresés {0} ms alatt futott le, {1} lefutása volt és az értéket {2}.", ora.ElapsedMilliseconds, j, (e <= u) ? "megtalálta" : "nem találta meg");
             Console.ReadKey();
         }
-        static void Kilencedik_project_harmadik_prg()
+        static void Kilencedik_project_harmadik_prg(string[] argsTomb) // Negy alapmuvelet veegrehajtasa metodussal main fuggveny
         {
             /*************************************************************/
-            // Negy alapmuvelet veegrehajtasa metodussal main fuggveny
+            // Paraméterek ellenőrzése ha van értékadás, ha ninics bekérés
             /*************************************************************/
+            int szam1 = 0, szam2 = 0;
+            char muvelet = ' ';
+            if (argsTomb.Length != 0)
+            {
+                for (int i = 0; i < argsTomb.Length; i++)
+                {
+                    switch (argsTomb[i])
+                    {
+                        case "-a":
+                            szam1 = Convert.ToInt32(argsTomb[i + 1]);
+                            break;
+                        case "-b":
+                            szam2 = Convert.ToInt32(argsTomb[i + 1]);
+                            break;
+                        case "-muvelet":
+                            muvelet = Convert.ToChar(argsTomb[i + 1]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else
+            {
 
-            Console.WriteLine("Adja meg az első operandust!");
-            int szam1 = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Adja meg az második operandust!");
-            int szam2 = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Adja meg a műveletet!");
-            char muvelet = Console.ReadKey().KeyChar;
-            Console.WriteLine();
+                /*************************************************************/
+                // Negy alapmuvelet végrehajtasa metodussal bekérés és végrehajtás
+                /*************************************************************/
+
+                Console.WriteLine("Adja meg az első operandust!");
+                szam1 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Adja meg az második operandust!");
+                szam2 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Adja meg a műveletet!");
+                muvelet = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+            }
             double eredmeny = Kilencedik_porject_harmadik_prg(szam1, szam2, muvelet); // negy alap múvelet methodus
             if (double.IsNaN(eredmeny))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("A megadott művelet hejtelen!");
+                Console.WriteLine("A megadott művelet helytelen!");
                 Console.ResetColor();
             }
-            else 
+            else
             {
                 Console.WriteLine("Az eredmény: " + eredmeny);
             }
             Console.ReadKey();
+
         }
-        static double Kilencedik_porject_harmadik_prg(int a, int b, char muvelet) // Negy alapmuvelet vegrehajtasa metodussal
+        static double Kilencedik_porject_harmadik_prg(int a, int b, char muvelet) // Negy alapmuvelet vegrehajtasa metodus
         {
             /*************************************************************/
             // Negy alapmuvelet veegrehajtasa metodussal
@@ -989,7 +1021,7 @@ namespace Tanfolyam_01
 
             switch (muvelet)
             {
-                case '+' :
+                case '+':
                     return a + b;
                 case '-':
                     return a - b;
@@ -1064,12 +1096,11 @@ namespace Tanfolyam_01
 
             //Kilencedik_porject_elso_prg();
             //Kilencedik_porject_masodik_prg();
-            Kilencedik_project_harmadik_prg();
+            Kilencedik_project_harmadik_prg(args);
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 3, '+'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(12, 8, '/'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 0, '/'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(-5, 0, '/'));
-            //Console.ReadKey();
         }
     }
 }
