@@ -1038,6 +1038,38 @@ namespace Tanfolyam_01
             }
         }
 
+        static string Tizedik_project_elso_prg(string alapSzoveg) // Szöveg ékezet mentesítése
+        {
+            // AlapSzovrg[0] = 'A'; --> eu nem működik egy szöveget nem lehet módósítani -- nem módosítható objectum
+            string mentesitettSzoveg = ""; // string.Empty;
+            string csere = "öüóőúéáűíÖÜÓŐÚÉÁŰÍ", ujCsere = "ouooueauiOUOOUEAUI";
+            for (int i = 0; i < alapSzoveg.Length; i++)
+            {
+                // alapSzoveg[i] --> mindne esetben kijelöli a következö karaktert a szövegben amelyről elkel dönteni, hogy cserélendő-e - ha igen akkor a csere változatát, ha nem akkor sajátmagát rakjuk bele a mentesitettSzoveg-be
+                int keresesIndex = Tizedik_project_elso_prg(csere, alapSzoveg[i]);
+                if (keresesIndex == -1)
+                {
+                    mentesitettSzoveg += alapSzoveg[i]; // Nivel nem találtuk meg ezért sajátmagát rakjuk be az új szövegbe is --> nem ékezetes a krakter
+
+                }
+                else // megtalálta a Linearis keresés
+                {
+                    mentesitettSzoveg += ujCsere[keresesIndex]; // Ezzel tehát az ékezetes karakter új változatát raktuk bele a szövegbe
+                }
+            }
+            return mentesitettSzoveg;
+        }
+
+        static int Tizedik_project_elso_prg(string miben, char mit) // Egy megadott karakter lineáris keresésa a megadott szövegben 
+        {
+            int i = 0;
+            while (i < miben.Length && miben[i] != mit)
+            {
+                i++;
+            }
+            return (i < miben.Length) ? i : -1;
+        }
+
         /*************************************************************/
         // Main metodus parameterek kiiratasa
         /*************************************************************/
@@ -1096,11 +1128,14 @@ namespace Tanfolyam_01
 
             //Kilencedik_porject_elso_prg();
             //Kilencedik_porject_masodik_prg();
-            Kilencedik_project_harmadik_prg(args);
+            //Kilencedik_project_harmadik_prg(args);
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 3, '+'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(12, 8, '/'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(5, 0, '/'));
             //Console.WriteLine(Kilencedik_porject_harmadik_prg(-5, 0, '/'));
+
+            Console.WriteLine(Tizedik_project_elso_prg("árvíztűrő tükörfúrógép, ÁRVÍTÜRŐ TÜKÖRFÚRÓGÉP")); // Szöveg ékezet mentesítése
+            Console.ReadKey();
         }
     }
 }
