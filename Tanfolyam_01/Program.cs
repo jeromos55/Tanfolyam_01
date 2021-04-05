@@ -21,7 +21,7 @@ namespace Tanfolyam_01
             public int arak; // az árak
         }
 
-        static void Elso_project_Hello_word()
+        static void HelloWord()                               // Hello world
         {
             /*************************************************************/
             // Hello world
@@ -37,7 +37,7 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey(); // Beolvasunk tehat a felhasznalotol egy karaktert, mely akkor tud csak tovabb ugrani ha aa felhasznalo lenyomta a gombot, így addig a konyol életben marad.
         }
-        static void Masodik_project_Elso_prg()
+        static void Szamkiiratas()                            // Szám kiiratás
         {
             /*************************************************************/
             // Elso megoldas
@@ -50,7 +50,7 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
         }
-        static void Masodik_project_Masodik_prg()
+        static void SzamkiiratasJavitvaV1()                   // Szám kiiratás egymásba ágyazással
         {
             /*************************************************************/
             // Masodik megoldas
@@ -62,8 +62,8 @@ namespace Tanfolyam_01
             // A programnyelv logikaja megengedi, hogy ha egy valamilyen "funkcionak" olyan adatot adok at, ami valojaban egy masik "funkcionak" az eredmenye, akkor tudja, hogy addig az az adat nem lesz feldolgozhato az elso finkcioban amig a masodik le nem futott. Ezt akarmeddig tudja folytatni....
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Harmadik_project_Elso_prg()
+        }   
+        static void SzamkiiratasJavitvaV2()                   // Szám kiiratás egymásba ágyazással folytatva
         {
             /*************************************************************/
             // Elso megoldas
@@ -77,8 +77,8 @@ namespace Tanfolyam_01
             Console.WriteLine(szam);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Harmadik_project_Masodik_prg()
+        }  
+        static void SzamkiiratasJavitvaV3()                   // Szám kiiratás egymásba ágyazással folytatva
         {
             /*************************************************************/
             // Masodik megoldas
@@ -91,7 +91,7 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
         }
-        static void Harmadik_project_Harmadik_prg()
+        static void SzamkiiratasJavitvaKesz()
         {
             /*************************************************************/
             // Harmadik megoldas
@@ -102,8 +102,8 @@ namespace Tanfolyam_01
             Console.WriteLine(Math.Pow(Convert.ToInt32(Console.ReadLine()), 2));
             Console.WriteLine("\nNyomj meg egy gombot!");
             Console.ReadKey();
-        }
-        static void Negyedik_project_Elso_prg()
+        }              // Szám kiiratás egymásba ágyazással kész
+        static void SzamNegyzetKobV1()
         {
             /*********************************************************************************/
             // elso megoldas
@@ -125,8 +125,8 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
 
-        }
-        static void Negyedik_project_Masodik_prg()
+        }                     // Szam négyzetre vagy köbre emelése if state
+        static void SzamNegyzetKobV2()
         {
 
             /*********************************************************************************/
@@ -139,8 +139,8 @@ namespace Tanfolyam_01
             Console.WriteLine(Math.Pow(szam, (szam % 2 == 0) ? 2 : 3));
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Otodik_project_Elso_prg()
+        }                     // Szam négyzetre vagy köbre emelése tenary state (...) ? ... : ...;
+        static void Osztalyzatok()
         {
             /*************************************************************/
             // Osztalyzatok
@@ -177,8 +177,8 @@ namespace Tanfolyam_01
 
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Hatodik_project_Elso_prg()
+        }                         // Osztáyzatok kiiratása szövegesen
+        static void OsszegSzorzat()
         {
             /*************************************************************/
             // Osszeg, szorzat, kiiratas peldak
@@ -204,8 +204,8 @@ namespace Tanfolyam_01
 
             Console.WriteLine("\nNyonjon meg egy gombot!");
             Console.ReadKey();
-        }
-        static void Hetedik_project_Elso_prg()
+        }                        // Számok összegének és szorzatának kiiratása különböző módokon
+        static void ErtekAtadas()
         {
             /*************************************************************/
             // Ertek atadas peldak
@@ -219,8 +219,8 @@ namespace Tanfolyam_01
             Console.WriteLine("  Az 'a' változo erteke: {0}, a 'b' valtozo erteke: {1}", a, b);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Hetedik_project_Masodik_prg()
+        }                          // Érték átadás példa
+        static void ReferenciaAtadas()
         {
             /*************************************************************/
             // Referencia szerinti atadas
@@ -237,8 +237,8 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
 
-        }
-        static void Hetedik_project_Harmadik_prg()
+        }                     // Referencia szerinti atadas
+        static void ManualisKlonozas()
         {
             /*************************************************************/
             // Manualis klonozas
@@ -261,8 +261,8 @@ namespace Tanfolyam_01
             Console.WriteLine("Az eredmeny: aTomb[0] = {0}, aTomb[1] = {1}, bTomb[0] = {2}, aTomb[1] = {3}\n", aTomb[0], aTomb[1], bTomb[0], bTomb[1]);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void Hetedik_project_Negyedik_prg()
+        }                     // Manualis klonozas (egy tömb átmásolása egy másikba)
+        static void ReferenciaAtadasString()
         {
             /*************************************************************/
             // Ertekatadas pelda
@@ -275,7 +275,7 @@ namespace Tanfolyam_01
             // Funkcio(tomb) --> itt csak hivatkozast adok meg a tombre, nem masolom at a memoriaban, mint az elozo string-et
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
+        }               // Ertekatadas pálda egy sztring átadáasa egy metódussal
         static void Hetedik_project_Otodik_prg() // Maximum kereses hiba kereses gyakorlása
         {
             /*************************************************************/
@@ -1037,7 +1037,6 @@ namespace Tanfolyam_01
                     return double.NaN;
             }
         }
-
         static string Tizedik_project_elso_prg(string alapSzoveg) // Szöveg ékezet mentesítése
         {
             // AlapSzovrg[0] = 'A'; --> eu nem működik egy szöveget nem lehet módósítani -- nem módosítható objectum
@@ -1059,7 +1058,6 @@ namespace Tanfolyam_01
             }
             return mentesitettSzoveg;
         }
-
         static int Tizedik_project_elso_prg(string miben, char mit) // Egy megadott karakter lineáris keresésa a megadott szövegben 
         {
             int i = 0;
@@ -1097,26 +1095,20 @@ namespace Tanfolyam_01
 
         static void Main(string[] args)
         {
+            //HelloWord();                          // 01 Project -- > Hello word
+            //Szamkiiratas();                       // 02 Project --> Számkiíratás
+            //SzamkiiratasJavitvaV1();              // 02 Project --> Számkiíratás egymásba ágyazassal
+            //SzamkiiratasJavitvaV2();              // 03 Project --> Számkiíratás egymásba ágyazassal folytatva
+            //SzamkiiratasJavitvaV3();              // 03 Project --> Számkiíratás egymásba ágyazassal folytatva
+            //SzamkiiratasJavitvaKesz();            // 03 Project --> Számkiíratás egymásba ágyazassal kész
+            //SzamNegyzetKobV1();                   // 04 Project --> Szam négyzetre vagy köbre emelése if state
+            //SzamNegyzetKobV2();                   // 04 Project --> Szam négyzetre vagy köbre emelése tenary state (...) ? ... : ...;
+            //Osztalyzatok()();                     // 05 Project --> Osztályzatok kiiratása szövegesen
+            //OsszegSzorzat();                      // 06 Project --> Számok összegének és szorzaténak kiiratasa különböző módokon
+            //ErtekAtadas();                        // 07 Project --> Érték átadás példa
+            //ReferenciaAtadas();                   // 07 Project --> Referencia szerinti átadás pléda
+            //ManualisKlonozas();                   // 07 Project --> Manuális klónozás ---- egy tömb átmásolása egy másikba
 
-            //Elso_project_Hello_word();  //Hello word
-
-            //Masodik_project_Elso_prg();  
-            //Masodik_project_Masodik_prg();
-
-            //Harmadik_project_Elso_prg();
-            //Harmadik_project_Masodik_prg();
-            //Harmadik_project_Harmadik_prg();
-
-            //Negyedik_project_Elso_prg();
-            //Negyedik_project_Masodik_prg();
-
-            //Otodik_project_Elso_prg();
-
-            //Hatodik_project_Elso_prg();   
-
-            //Hetedik_project_Elso_prg();
-            //Hetedik_project_Masodik_prg();
-            //Hetedik_project_Harmadik_prg();
             //Hetedik_project_Negyedik_prg();
             //Hetedik_project_Otodik_prg();
             //Hetedik_project_Hatodik_prg();
