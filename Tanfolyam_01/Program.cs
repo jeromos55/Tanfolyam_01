@@ -21,7 +21,7 @@ namespace Tanfolyam_01
             public int arak; // az árak
         }
 
-        static void HelloWord()                               // Hello world
+        static void HelloWord()
         {
             /*************************************************************/
             // Hello world
@@ -36,8 +36,8 @@ namespace Tanfolyam_01
             // A megoldas: olyan feladatot adunk a programnak amit nem tud rögtön végrehajtani, így am0g arra var, addig mi el tudjuk olvasni, hogy mi van a konzolon.
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey(); // Beolvasunk tehat a felhasznalotol egy karaktert, mely akkor tud csak tovabb ugrani ha aa felhasznalo lenyomta a gombot, így addig a konyol életben marad.
-        }
-        static void Szamkiiratas()                            // Szám kiiratás
+        }                            // Hello world
+        static void Szamkiiratas()
         {
             /*************************************************************/
             // Elso megoldas
@@ -49,8 +49,8 @@ namespace Tanfolyam_01
             Console.WriteLine(szam);                     //Ki: szam
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }
-        static void SzamkiiratasJavitvaV1()                   // Szám kiiratás egymásba ágyazással
+        }                         // Szám kiiratás
+        static void SzamkiiratasJavitvaV1()
         {
             /*************************************************************/
             // Masodik megoldas
@@ -62,8 +62,8 @@ namespace Tanfolyam_01
             // A programnyelv logikaja megengedi, hogy ha egy valamilyen "funkcionak" olyan adatot adok at, ami valojaban egy masik "funkcionak" az eredmenye, akkor tudja, hogy addig az az adat nem lesz feldolgozhato az elso finkcioban amig a masodik le nem futott. Ezt akarmeddig tudja folytatni....
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }   
-        static void SzamkiiratasJavitvaV2()                   // Szám kiiratás egymásba ágyazással folytatva
+        }                // Szám kiiratás egymásba ágyazással 
+        static void SzamkiiratasJavitvaV2()
         {
             /*************************************************************/
             // Elso megoldas
@@ -77,7 +77,7 @@ namespace Tanfolyam_01
             Console.WriteLine(szam);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }  
+        }                // Szám kiiratás egymásba ágyazással folytatva
         static void SzamkiiratasJavitvaV3()                   // Szám kiiratás egymásba ágyazással folytatva
         {
             /*************************************************************/
