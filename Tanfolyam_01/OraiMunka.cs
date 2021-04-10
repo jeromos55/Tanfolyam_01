@@ -1012,6 +1012,34 @@ namespace Tanfolyam_01
             Console.ReadKey();
 
         }
+        public static void NegyAlapmuveletMainTanarral(string[] argumentumok)         // Negy alapmuvelet veegrehajtasa metodussal --> tanarral
+        {
+            /*************************************************************/
+            // Negy alapmuvelet tanarral ez ha rossz sorrendben adjuk meg lefagy
+            /*************************************************************/
+            if (argumentumok.Length == 3)
+            {
+                double eredmeny = NegyAlapmuveletMetodus(Convert.ToInt32(argumentumok[0]), Convert.ToInt32(argumentumok[1]), argumentumok[2][0]);
+                if ( double.IsNaN(eredmeny) )
+                {
+                    ConsoleError("A megadott művelet helytelen!");
+                }
+                else
+                {
+                    Console.WriteLine("Az eredmény: " + eredmeny);
+                }
+            }
+            else
+            {
+                ConsoleError("Az argumentumok száma helytelen!");
+            }
+        }
+        public static void ConsoleError(string errorText)                             // Konzol hiba üzenet pirossal
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(errorText);
+            Console.ResetColor();
+        }
         public static double NegyAlapmuveletMetodus(int a, int b, char muvelet)       // Negy alapmuvelet vegrehajtasa metodus
         {
             /*************************************************************/
