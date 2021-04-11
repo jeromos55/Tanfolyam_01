@@ -9,8 +9,8 @@ namespace Tanfolyam_01
 {
     class Program
     {
-        
-        
+
+
 
         /*************************************************************/
         // Main metodus parameterek kiiratasa
@@ -69,6 +69,36 @@ namespace Tanfolyam_01
             //Console.WriteLine(OraiMunka.NegyAlapmuveletMetodus(-5, 0, '/'));    // -5 / 0 = - végtelen ---> 0 / 0 = NaN (Non A Number)
 
             //Console.WriteLine(OraiMunka.SzovegEkezetMentesitese("árvíztűrő tükörfúrógép, ÁRVÍTÜRŐ TÜKÖRFÚRÓGÉP")); // Szöveg ékezet mentesítése
+
+            //SajatProgramok.IfElseProblems1(22, "Andras");
+            //SajatProgramok.IfElseProblems1(19, "Kati");
+            //SajatProgramok.IfElseProblems1(5, "Zsolt");
+            //SajatProgramok.IfElseProblems1(0, "Peter");
+
+            //Console.ReadKey();
+            //Console.Clear();
+
+            //SajatProgramok.IfElseProblems2(22, "Andras");
+            //SajatProgramok.IfElseProblems2(19, "Kati");
+            //SajatProgramok.IfElseProblems2(5, "Zsolt");
+            //SajatProgramok.IfElseProblems2(0, "Peter");
+
+            //Console.ReadKey();
+            //Console.Clear();
+
+            //SajatProgramok.IfElseProblems3(22, "Andras");
+            //SajatProgramok.IfElseProblems3(19, "Kati");
+            //SajatProgramok.IfElseProblems3(5, "Zsolt");
+            //SajatProgramok.IfElseProblems3(0, "Peter");
+
+            Console.WriteLine(OraiMunka.FaktorialisCiklussal(5));
+            Console.WriteLine(OraiMunka.FaktorialisRekurziv(5));
+            Console.WriteLine(OraiMunka.FaktorialisRekurziv2(5));
+
+            Console.WriteLine(OraiMunka.FibonacciCiklussal(5));
+            Console.WriteLine(OraiMunka.FibonacciCiklussal(10));
+            Console.WriteLine(OraiMunka.FibonacciRekurziv(5));
+            Console.WriteLine(OraiMunka.FibonacciRekurziv(10));
 
             Console.ReadKey();
         }

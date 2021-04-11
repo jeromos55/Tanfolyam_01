@@ -599,7 +599,7 @@ namespace Tanfolyam_01
             Console.ReadKey();
 
         }
-        public static void ButorokCikkszamokArakV3()                                  // Butor cikkszamok, strukúrákba rendezve, önnálóan és a tanárral befejezve
+        public static void ButorokCikkszamokArakV3()                                  // Butor cikkszamok, strukúrákba rendezve, önnálóan és a tanárral befejezves
         {
             /*************************************************************/
             // Butor cikkszamok és árak ellenörzése
@@ -1066,6 +1066,9 @@ namespace Tanfolyam_01
         }
         public static string SzovegEkezetMentesitese(string alapSzoveg)               // Szöveg ékezet mentesítése
         {
+            /*************************************************************/
+            // Szöveg ékezet mentesítése
+            /*************************************************************/
             // AlapSzovrg[0] = 'A'; --> eu nem működik egy szöveget nem lehet módósítani -- nem módosítható objectum
             string mentesitettSzoveg = ""; // string.Empty;
             string csere = "öüóőúéáűíÖÜÓŐÚÉÁŰÍ", ujCsere = "ouooueauiOUOOUEAUI";
@@ -1087,12 +1090,74 @@ namespace Tanfolyam_01
         }
         public static int SzovegLinearisKeresese(string miben, char mit)              // Egy megadott karakter lineáris keresésa a megadott szövegben 
         {
+            /*************************************************************/
+            // Egy megadott karakter lineáris keresésa a megadott szövegben
+            /*************************************************************/
             int i = 0;
             while (i < miben.Length && miben[i] != mit)
             {
                 i++;
             }
             return (i < miben.Length) ? i : -1;
+        }
+        public static int FaktorialisCiklussal(int hanyadik)                          // Faktorialis kiszamitasa ciklussal
+        {
+            /*************************************************************/
+            // Faktorialis kiszamitasa ciklussal
+            /*************************************************************/
+            int eredmeny = hanyadik;
+            for (hanyadik--;  hanyadik >= 1; hanyadik--)
+            {
+                eredmeny *= hanyadik;
+            }
+            return eredmeny;
+        }
+        public static int FaktorialisRekurziv(int hanyadik)                           // Faktorialis kiszamitasa rekurziv megoldassal
+        {
+            /*************************************************************/
+            // Faktorialis kiszamitasa rekurziv megoldassal
+            /*************************************************************/
+            if (hanyadik > 1)
+            {
+                return hanyadik * FaktorialisRekurziv(hanyadik - 1);
+            }
+            return 1;
+        } 
+        public static int FaktorialisRekurziv2(int hanyadik)                          // Faktorialis kiszamitasa rekurziv megoldassal egszerubben
+        {
+            /*************************************************************/
+            // Faktorialis kiszamitasa rekurziv megoldassal egszerubben
+            /*************************************************************/
+            return (hanyadik > 1) ? hanyadik * FaktorialisRekurziv(hanyadik - 1) : 1;
+        }
+        public static int FibonacciCiklussal(int hanyadik)                            // Fibonacci szam kiszamitasa ciklussal
+        {
+            /*************************************************************/
+            // Fibonacci szam kiszamitasa ciklussal
+            /*************************************************************/
+            if (hanyadik > 2)
+            {
+                int elozo = 1, elozoElotti = 1, eredemny = elozo + elozoElotti;
+                for (int i = 4; i <= hanyadik; i++)
+                {
+                    elozoElotti = elozo;
+                    elozo = eredemny;
+                    eredemny = elozo + elozoElotti;
+                }
+                return eredemny;
+            }
+            return 1;
+        }
+        public static int FibonacciRekurziv(int hanyadik)                             // Fibonacci szam kiszamitasa rekurziv megoldassal
+        {
+            /*************************************************************/
+            // Fibonacci szam kiszamitasa rekurziv megoldassal
+            /*************************************************************/
+            if (hanyadik > 2)
+            {
+                return FibonacciRekurziv(hanyadik - 1) + FibonacciRekurziv(hanyadik - 2);
+            }
+            return 1;
         }
     }
 }
