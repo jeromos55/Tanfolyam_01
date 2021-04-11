@@ -39,6 +39,51 @@ namespace Tanfolyam_01
 
         static void Main(string[] args)
         {
+            int[] tomb = { 1, 9, 15, 20, 21, 35, 36, 38, 49 };
+            int[] tomb2 = { 1, 15, 21, 28, 30 };
+            int[] tomb3 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            int[] tomb4 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            int[] tomb5 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            int[] tomb6 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            int[] tomb7 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            int[] shell_lepesek = { 5, 3, 1 };
+
+            //Tetelek.BinarisKereses(tomb, 49);
+            //Tetelek.BinarisKereses(tomb, 22);
+           
+            //Tetelek.Osszegzes(tomb);
+            //Tetelek.Megszemlalas(tomb, 21);
+            
+            //Tetelek.Eldontes(tomb, 21);
+            //Tetelek.Eldontes(tomb, 28);
+            
+            //Tetelek.Eldontes2(tomb, 21);
+            //Tetelek.Eldontes2(tomb, 28);
+            
+            //Tetelek.Kivalsztas(tomb, 15);
+            //Tetelek.Kivalsztas(tomb, 16);
+            
+            //Tetelek.LinearisKereses(tomb, 35);
+            //Tetelek.LinearisKereses(tomb, 37);
+            
+            //Tetelek.Kivalogatas(tomb, 21);
+            //Tetelek.Szetvalogatas(tomb, 35);
+            
+            //Tetelek.Metszet(tomb, tomb2);
+            //Tetelek.Unio(tomb, tomb2);
+
+            //Tetelek.Maximum(tomb);
+            //Tetelek.Maximum(tomb2);
+            //Tetelek.Minimum(tomb);
+            //Tetelek.Minimum(tomb2);
+
+            //Rendezesek.Buborek(tomb3);
+            //Rendezesek.Cseres(tomb4);
+            //Rendezesek.Maximum(tomb5);
+            //Rendezesek.Beszurasos(tomb3);
+            //Rendezesek.GyorsRekurziv_main(tomb6);
+            //Rendezesek.Shell_rendzes(tomb7, shell_lepesek);
+
             //OraiMunka.HelloWord();                                              // Hello word
             //OraiMunka.Szamkiiratas();                                           // Számkiíratás
             //OraiMunka.SzamkiiratasJavitvaV1();                                  // Számkiíratás egymásba ágyazassal
@@ -91,14 +136,16 @@ namespace Tanfolyam_01
             //SajatProgramok.IfElseProblems3(5, "Zsolt");
             //SajatProgramok.IfElseProblems3(0, "Peter");
 
-            Console.WriteLine(OraiMunka.FaktorialisCiklussal(5));
-            Console.WriteLine(OraiMunka.FaktorialisRekurziv(5));
-            Console.WriteLine(OraiMunka.FaktorialisRekurziv2(5));
+            //Console.WriteLine(OraiMunka.FaktorialisCiklussal(5));
+            //Console.WriteLine(OraiMunka.FaktorialisRekurziv(5));
+            //Console.WriteLine(OraiMunka.FaktorialisRekurziv2(5));
 
-            Console.WriteLine(OraiMunka.FibonacciCiklussal(5));
-            Console.WriteLine(OraiMunka.FibonacciCiklussal(10));
-            Console.WriteLine(OraiMunka.FibonacciRekurziv(5));
-            Console.WriteLine(OraiMunka.FibonacciRekurziv(10));
+            //Console.WriteLine(OraiMunka.FibonacciCiklussal(5));
+            //Console.WriteLine(OraiMunka.FibonacciCiklussal(10));
+            //Console.WriteLine(OraiMunka.FibonacciRekurziv(5));
+            //Console.WriteLine(OraiMunka.FibonacciRekurziv(10));
+
+            OraiMunka.BeepitettRendezes();
 
             Console.ReadKey();
         }

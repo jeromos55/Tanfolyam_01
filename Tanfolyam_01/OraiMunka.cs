@@ -1159,5 +1159,27 @@ namespace Tanfolyam_01
             }
             return 1;
         }
+        public static void BeepitettRendezes()                                        // Array.Sort() rendezes hasznalata
+        {
+            /*************************************************************/
+            // Array.Sort() rendezes hasznalata
+            /*************************************************************/
+            int[] szamok = new int[20];
+            Random r = new Random();
+            Console.WriteLine("A szamok rendezs elott:");
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                szamok[i] = r.Next(-1000, 1001);
+                Console.Write(szamok[i] + "; ");
+            }
+            Console.WriteLine("\n");
+            Array.Sort(szamok);
+            Console.WriteLine("A szamaok rendezes utan:");
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                Console.Write(szamok[i] + "; ");
+            }
+            Console.WriteLine();
+        }
     }
 }
