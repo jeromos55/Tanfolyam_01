@@ -39,14 +39,14 @@ namespace Tanfolyam_01
 
         static void Main(string[] args)
         {
-            int[] tomb = { 1, 9, 15, 20, 21, 35, 36, 38, 49 };
-            int[] tomb2 = { 1, 15, 21, 28, 30 };
-            int[] tomb3 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
-            int[] tomb4 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
-            int[] tomb5 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
-            int[] tomb6 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
-            int[] tomb7 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
-            int[] shell_lepesek = { 5, 3, 1 };
+            //int[] tomb = { 1, 9, 15, 20, 21, 35, 36, 38, 49 };
+            //int[] tomb2 = { 1, 15, 21, 28, 30 };
+            //int[] tomb3 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            //int[] tomb4 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            //int[] tomb5 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            //int[] tomb6 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            //int[] tomb7 = { 15, 9, 1, 35, 21, 20, 49, 38, 36 };
+            //int[] shell_lepesek = { 5, 3, 1 };
 
             //Tetelek.BinarisKereses(tomb, 49);
             //Tetelek.BinarisKereses(tomb, 22);
