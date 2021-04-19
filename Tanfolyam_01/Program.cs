@@ -50,25 +50,25 @@ namespace Tanfolyam_01
 
             //Tetelek.BinarisKereses(tomb, 49);
             //Tetelek.BinarisKereses(tomb, 22);
-           
+
             //Tetelek.Osszegzes(tomb);
             //Tetelek.Megszemlalas(tomb, 21);
-            
+
             //Tetelek.Eldontes(tomb, 21);
             //Tetelek.Eldontes(tomb, 28);
-            
+
             //Tetelek.Eldontes2(tomb, 21);
             //Tetelek.Eldontes2(tomb, 28);
-            
+
             //Tetelek.Kivalsztas(tomb, 15);
             //Tetelek.Kivalsztas(tomb, 16);
-            
+
             //Tetelek.LinearisKereses(tomb, 35);
             //Tetelek.LinearisKereses(tomb, 37);
-            
+
             //Tetelek.Kivalogatas(tomb, 21);
             //Tetelek.Szetvalogatas(tomb, 35);
-            
+
             //Tetelek.Metszet(tomb, tomb2);
             //Tetelek.Unio(tomb, tomb2);
 
@@ -145,8 +145,13 @@ namespace Tanfolyam_01
             //Console.WriteLine(OraiMunka.FibonacciRekurziv(5));
             //Console.WriteLine(OraiMunka.FibonacciRekurziv(10));
 
-            OraiMunka.BeepitettRendezes();
-
+            //OraiMunka.BeepitettRendezes();                                            // Array.Sort() rendezes hasznalata
+            //OraiMunka.AutoRendszamok();                                               // Autórednszámos feladat saját megoldás
+            //OraiMunka.AutoRendszamokTanar();                                          // Autórendszámos feldat tanárral megoldva
+            //SajatProgramok.BinarisKeresesRekurzivExamples();                          // Bináris kereses rekurziv saját megoldás
+            //OraiMunka.SzovegesFajlbolTanulok();
+            //OraiMunka.NevekFilebaIratasa();
+            OraiMunka.SzovegEkezetMentesito();
             Console.ReadKey();
         }
     }

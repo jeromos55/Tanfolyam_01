@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 
 namespace Tanfolyam_01
 {
@@ -15,11 +16,17 @@ namespace Tanfolyam_01
             public string nev; // a leírás egy tanulóra kell vonatkozzon
             public byte jegy; // Azokat a vátozókat amiket itt létrehozzunk mezőnek / field-nek nevezzük.
         }
+        struct Auto                                                            // (rendszam, alalpot)
+        {
+            public string rendszam;
+            public int allapot;
+        }
         struct Butor                                                           // struktura (cikkaszam, arak
         {
             public string cikkszam; // cikkszamok számok és karakterek
             public int arak; // az árak
         }
+
         public static void HelloWord()                                         // Hello world
         {
             /*************************************************************/
@@ -1180,6 +1187,321 @@ namespace Tanfolyam_01
                 Console.Write(szamok[i] + "; ");
             }
             Console.WriteLine();
+        }
+
+        /*************************************************************/
+        // Auto rendszamok kezdete
+        /*************************************************************/        
+        static int AutoKiválaszt(Auto[] autok)                                        // minimum allapot keresese
+        {
+            int n = autok.Length;  //Az n a tömb mérete
+            int min, index = -1;
+
+            min = autok[0].allapot;
+            for (int i = 1; i < n; i++)
+            {
+                if (autok[i].allapot < min)
+                {
+                    min = autok[i].allapot;
+                    index = i;
+                }
+            }
+            return index;
+        }
+        static void HibaUzenet1(string uzenet)                                        // hibauzenet
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(uzenet);
+            Console.ResetColor();
+        }
+        static void HibaUzenet2(string uzenet, Auto[] autok, int i)                  // hibauzenet
+        {
+            HibaUzenet1(uzenet);
+            autok[i].rendszam = Console.ReadLine();
+        }
+        static void BekeresRendszam(string uzenet, Auto[] autok, int i)              // rendszam bekerese
+        {
+            bool voltBekeres = false;
+            do
+            {
+                if (voltBekeres)
+                {
+                    HibaUzenet1(uzenet);
+                }
+                autok[i].rendszam = Console.ReadLine();
+                voltBekeres = true;
+            } while (string.IsNullOrWhiteSpace(autok[i].rendszam));
+        }
+        static void BekeresAllapot(string uzenet, Auto[] autok, int i)               // allapot  bekerese
+        {
+            bool voltBekeres = false;
+            do
+            {
+                if (voltBekeres)
+                {
+                    HibaUzenet1(uzenet);
+                }
+                autok[i].allapot = Convert.ToInt32(Console.ReadLine());
+                voltBekeres = true;
+            } while (string.IsNullOrWhiteSpace(autok[i].rendszam));
+        }
+        static bool RendszamLekerdezes(Auto[] autok, int i, bool hibasRendszam)      // a rendszam ellenorzese
+        {
+            hibasRendszam = autok[i].rendszam.Length != 7;
+            hibasRendszam = !Char.IsLetter(autok[i].rendszam[0]);
+            hibasRendszam = !Char.IsLetter(autok[i].rendszam[1]);
+            hibasRendszam = !Char.IsLetter(autok[i].rendszam[2]);
+            hibasRendszam = autok[i].rendszam[3] == '-';
+            hibasRendszam = !Char.IsDigit(autok[i].rendszam[4]);
+            hibasRendszam = !Char.IsDigit(autok[i].rendszam[5]);
+            hibasRendszam = !Char.IsDigit(autok[i].rendszam[6]);
+            return hibasRendszam;
+        }
+        public static void AutoRendszamok()
+        {
+            Console.WriteLine("Adja meg hány auto adatait szeretné rögzíteni! (XXX-XXX)");
+            Auto[] autok = new Auto[Convert.ToInt32(Console.ReadLine())];
+
+            for (int i = 0; i < autok.Length; i++)
+            {
+                // rendszámok
+                //----------------------------------------------------------------------------------------------
+                Console.WriteLine("Irja be az {0}. autó rendszámát:  ", i + 1);
+                BekeresRendszam(" A magadott szám hibás! A Rendszám nem lehet üres!", autok, i);
+                bool hibasRendszam;
+                do
+                {
+                    hibasRendszam = false;
+                    if (autok[i].rendszam.Length != 7)
+                    {
+                        HibaUzenet2(" A Rendszám hibás!", autok, i);
+                        hibasRendszam = true;
+                    }
+                    else
+                    {
+                        hibasRendszam = false;
+                        if (RendszamLekerdezes(autok, i, hibasRendszam))
+                        {
+                            HibaUzenet2(" A Rendszám hibás!", autok, i);
+                        }
+                    }
+                } while (hibasRendszam);
+
+                // állapot
+                //----------------------------------------------------------------------------------------------
+                Console.WriteLine("Irja be az {0}. ({1}) rendszamú autó  állapotát:  ", i + 1, autok[i].rendszam);
+                BekeresAllapot("A megadott állapot hibás! (0-100) ", autok, i);
+                Console.Clear();
+            }
+            int eredmeny = AutoKiválaszt(autok);
+            Console.WriteLine("A legrosszabb allapotban levő autó rendszáma {0} és álapota {1}", autok[eredmeny].rendszam, autok[eredmeny].allapot);
+            Console.ReadKey();
+        }                                       // a funkciók mehívása és a rendszámok bekérése illetve ellenörzése
+
+
+        /*************************************************************/
+        // Auto rendszamok Tanárral
+        /*************************************************************/
+
+        struct AutoT
+        {
+            public string rendszam;
+            public byte allapot;
+        }
+
+        // Reguláris kifejezések alkalmazása: [A-Za-Z]{3}\-[0-9]{3}
+        // }while(Regex.IsMatch(autok[i].rendszam, "[A-Za-Z]{3}-[0-9]{3}"));
+
+        static AutoT MinimumKivalasztas(AutoT[] autokT)
+        {
+            AutoT min = autokT[0];
+            for (int i = 0; i < autokT.Length; i++)
+            {
+                if (min.allapot > autokT[i].allapot)
+                {
+                    min = autokT[i];
+                }
+            }
+            return min;
+        }
+        static void Kiiratas(string szoveg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(szoveg);
+            Console.ResetColor();
+        }
+        public static void AutoRendszamokTanar()
+        {
+            Console.WriteLine("Adja meg hány autó lesz!");
+            bool voltMarBekeres = false;
+            int elemszam = 0;
+            do
+            {
+                if (voltMarBekeres)
+                {
+                    Kiiratas("A megadott elemszám nem megfelelő!");
+                }
+                elemszam = Convert.ToInt32(Console.ReadLine());
+                voltMarBekeres = true;
+            } while (elemszam < 1);
+            AutoT[] autokT = new AutoT[elemszam];
+            for (int i = 0; i < autokT.Length; i++)
+            {
+                Console.WriteLine("Adja meg a(z) {0}. autó rendszámát!", i + 1);
+                voltMarBekeres = false;
+                do
+                {
+                    if (voltMarBekeres)
+                    {
+                        Kiiratas("A megadott rendszám üres!");
+                    }
+                    autokT[i].rendszam = Console.ReadLine();
+                    voltMarBekeres = true;
+                } while (string.IsNullOrWhiteSpace(autokT[i].rendszam));
+                //}while(autok[i].rendszam = "");
+                //}while(autok[i].rendszam = String.Empty);
+                Console.WriteLine("Adja meg a(z) {0}. autó ({1}) állapotát", i + 1, autokT[i].rendszam);
+
+                voltMarBekeres = false;
+                do
+                {
+                    if (voltMarBekeres)
+                    {
+                        Kiiratas("Az autók állapota 0 és 100 között lehet!");
+
+                    }
+                    autokT[i].allapot = Convert.ToByte(Console.ReadLine());
+                    voltMarBekeres = true;
+                } while (autokT[i].allapot > 100); // mert a Byte nem tárol előjelet
+                //}while(autok[i].allapot > 100 || autok[i].allapot < 0); // ha int mert a Integerben lehet negatív szám
+
+                //*****************************************************************
+                // ha nem üznek be semmi akkor így lehet ellenőrizni
+                //*****************************************************************
+                //string ideiglenesAllapot;
+                //do{
+                //    if .....
+                //    ideiglenesAllapot = Console.ReadLine();
+                //    ideiglenesAllapot = ture;
+                //}while(string.IsNullOrWhiteSpace(ideiglenesAllapot) || Convert.ToByte(ideiglenesAllapot) > 100);
+                //autok[i].allapot = Convert.ToByte(ideiglenesAllapot);
+                //*****************************************************************
+
+                Console.Clear();
+            }
+
+            // minimum kiválasztás
+            AutoT min = MinimumKivalasztas(autokT);
+            Console.WriteLine("A megadott autók között a legrosszabb: " + min.rendszam);
+            Console.ReadKey();
+        }
+
+        /*************************************************************/
+        // Fájl kezelés beolvasás
+        /*************************************************************/
+
+        struct TanuloAtlag
+        {
+            public string nev;
+            public double atlag;
+        }
+        static TanuloAtlag[] SzovegesFajlbolStreamReader(string filenev)
+        {
+            // A probléma az, hogy a StreamReader alapvetően csak azt tudja, hogy a fájl végére értünk-e - azt nem tudja előre, hogy mennyi van még hátra és azt sem tudja, hogy az hány sorban van elrendezve --> a tömb amibe mentenénk a tnaulök adatait viszont fix méretű, így tudni kellene előre, hogy hány tanulóra számítunk. --> Megoldás: kétszer olvassuk be a fájlt --> ez nem tól jó mert a hátértár a leglassabb adatkiszolgáló eszköz.
+            StreamReader file = new StreamReader(filenev);
+            int sorszam = 0;
+            while (!file.EndOfStream) // RndOfStream --> megadja, hogy vége van-e a fájlnak
+            {
+                file.ReadLine(); // Beolvas a fájlból egy sornyi adatot, de ezzel nem tudunk mit kezdeni, mág nincs hova menteni
+                sorszam++;
+            }
+            file.Close(); // A probléma, hogy tudjuk, hogy hány sor van, de a fájlpointer a fájl végén van addigre, nekünk pedig újra kellene indítanunk az olvasást, tehát lezárjuk a fájlt és ujra megnyitjuk - ekkor a filepointer vissza kerül az elejére
+            file = new StreamReader(filenev/*, Encoding.Default*/);           // A .NET alatt futó alap értelmezet kódolást adja mega az Encoding.Default Windows-nál ez UTF-16
+            TanuloAtlag[] tanulok = new TanuloAtlag[sorszam / 2];             // Azért kettő mert minden tanulo két sort foglal el
+            for (int i = 0; i < tanulok.Length && ! file.EndOfStream; i++)    // a biztonnság kedvéért a file végét is ellenőrizük de nem szükséges
+            {
+                tanulok[i].nev = file.ReadLine();                             // beolvasunk egy sort
+                tanulok[i].atlag = Convert.ToDouble(file.ReadLine());         // beolvasunk egy sort és konvertáljuk
+            }
+            file.Close();
+            return tanulok;
+        }
+        static TanuloAtlag[] SzovegesFajlbolFile(string filenev)
+        {
+            // A probléma hogy a File osztály seggírségével egy file-t teljes egészében be tudunk olvasni, viszont így akarva akaratlanul a teljes file be kerül a memóriába, így egy ideig dupla memória területet használ a program, a másik probléma, hogy lehet a file eleve negyobb mint a memória
+            string[] teljesFileSoronkent = File.ReadAllLines(filenev/*, Encoding.Default*/);
+            TanuloAtlag[] tanulok = new TanuloAtlag[teljesFileSoronkent.Length / 2];
+            for (int i = 0, j = 0; i < tanulok.Length; i++, j += 2)
+            {
+                tanulok[i].nev = teljesFileSoronkent[j];
+                tanulok[i].atlag = Convert.ToDouble(teljesFileSoronkent[j + 1]);   
+            }
+            return tanulok;
+        }
+        public static void SzovegesFajlbolTanulok()
+        {
+            TanuloAtlag[] tanulok = SzovegesFajlbolStreamReader(@"tanulok.txt");
+            for (int i = 0; i < tanulok.Length; i++)
+            {
+                Console.WriteLine(tanulok[i].nev + "; " + tanulok[i].atlag);
+            }
+            Console.WriteLine();
+            Console.ReadKey();
+
+            TanuloAtlag[] tanulokFile = SzovegesFajlbolFile(@"tanulok.txt");
+            for (int i = 0; i < tanulokFile.Length; i++)
+            {
+                Console.WriteLine(tanulokFile[i].nev + "; " + tanulokFile[i].atlag);
+            }
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+
+        /*************************************************************/
+        // Fájl kezelés kiiratás
+        /*************************************************************/
+
+        public static void NevekFilebaIratasa()
+        {
+            StreamWriter file = new StreamWriter(@"nevek.txt", true);  // true esetén az append fog végrehajtódni
+            string nev;
+            int mentesSzamlalo = 0;
+            do
+            {
+                Console.WriteLine("Adja meg a következő nevet! (kilépés --> exit)");
+                nev = Console.ReadLine();
+                mentesSzamlalo++;
+                if (nev != "exit")
+                {
+                    file.WriteLine(nev);
+                    if (mentesSzamlalo % 5 == 0)  // minden 5. névnél csinálunk egy file-ba kiiratást
+                    {
+                        file.Flush();
+                    }
+                }
+            } while (nev != "exit");
+            file.Close();  // file-t minden esetben le kell zárni
+        }
+
+        /*************************************************************/
+        // Ékezetmentesítő
+        /*************************************************************/
+
+        static string SzovegEkezet(string eredetiSzoveg)
+        {
+            eredetiSzoveg = eredetiSzoveg.ToLower().Trim();
+            string csereledo = "öüóőúéáűí ", csere = "ouooueaui_";
+            for (int i = 0; i < csereledo.Length; i++)
+            {
+                eredetiSzoveg = eredetiSzoveg.Replace(csereledo[i], csere[i]);
+            }
+            return eredetiSzoveg;
+        }
+        public static void SzovegEkezetMentesito()
+        {
+            Console.WriteLine("Adja meg a szöveget!");
+            Console.WriteLine(SzovegEkezet(Console.ReadLine()));
+            Console.ReadKey();
         }
     }
 }
