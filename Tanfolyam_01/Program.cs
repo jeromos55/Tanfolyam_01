@@ -151,7 +151,22 @@ namespace Tanfolyam_01
             //SajatProgramok.BinarisKeresesRekurzivExamples();                          // Bináris kereses rekurziv saját megoldás
             //OraiMunka.SzovegesFajlbolTanulok();
             //OraiMunka.NevekFilebaIratasa();
-            OraiMunka.SzovegEkezetMentesito();
+            //OraiMunka.TanulokFilebaIratasa();
+            //OraiMunka.SzovegEkezetMentesito();
+
+            /*************************************************************/
+            // tanulok.txt létrehozás és ujból beolvasaása 
+            // majd átlag és min és max kiiratása
+            /*************************************************************/
+            //OraiMunka.TanulokFilebaIratasaStruct();
+            OraiMunka.TanuloAtlag[] tanulokFile = OraiMunka.SzovegesFajlbolFile("tanulok.txt");
+            Console.WriteLine("A tanulók átlaga: {0}", OraiMunka.Atlagszamitas(tanulokFile));
+            int min = OraiMunka.MinimumSzamitas(tanulokFile);
+            Console.WriteLine("A legrosszab tanuló: {0}" + " az átlaga {1}", tanulokFile[min].nev, tanulokFile[min].atlag);
+            int max = OraiMunka.MaximumSzamitas(tanulokFile);
+            Console.WriteLine("A legjobb tanuló: {0}" + " az átlaga {1}", tanulokFile[max].nev, tanulokFile[max].atlag);
+            OraiMunka.EvVegiJegyek(tanulokFile);
+
             Console.ReadKey();
         }
     }

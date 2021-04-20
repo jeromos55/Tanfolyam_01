@@ -1192,6 +1192,7 @@ namespace Tanfolyam_01
         /*************************************************************/
         // Auto rendszamok kezdete
         /*************************************************************/        
+  
         static int AutoKiválaszt(Auto[] autok)                                        // minimum allapot keresese
         {
             int n = autok.Length;  //Az n a tömb mérete
@@ -1400,7 +1401,7 @@ namespace Tanfolyam_01
         // Fájl kezelés beolvasás
         /*************************************************************/
 
-        struct TanuloAtlag
+        public struct TanuloAtlag
         {
             public string nev;
             public double atlag;
@@ -1426,7 +1427,7 @@ namespace Tanfolyam_01
             file.Close();
             return tanulok;
         }
-        static TanuloAtlag[] SzovegesFajlbolFile(string filenev)
+        public static TanuloAtlag[] SzovegesFajlbolFile(string filenev)
         {
             // A probléma hogy a File osztály seggírségével egy file-t teljes egészében be tudunk olvasni, viszont így akarva akaratlanul a teljes file be kerül a memóriába, így egy ideig dupla memória területet használ a program, a másik probléma, hogy lehet a file eleve negyobb mint a memória
             string[] teljesFileSoronkent = File.ReadAllLines(filenev/*, Encoding.Default*/);
@@ -1438,9 +1439,9 @@ namespace Tanfolyam_01
             }
             return tanulok;
         }
-        public static void SzovegesFajlbolTanulok()
+        public static void SzovegesFajlbolTanulok(string filenev)
         {
-            TanuloAtlag[] tanulok = SzovegesFajlbolStreamReader(@"tanulok.txt");
+            TanuloAtlag[] tanulok = SzovegesFajlbolStreamReader(filenev);     // (@"tanulok.txt")
             for (int i = 0; i < tanulok.Length; i++)
             {
                 Console.WriteLine(tanulok[i].nev + "; " + tanulok[i].atlag);
@@ -1448,13 +1449,62 @@ namespace Tanfolyam_01
             Console.WriteLine();
             Console.ReadKey();
 
-            TanuloAtlag[] tanulokFile = SzovegesFajlbolFile(@"tanulok.txt");
+            TanuloAtlag[] tanulokFile = SzovegesFajlbolFile(filenev);   // (@"tanulok.txt")
             for (int i = 0; i < tanulokFile.Length; i++)
             {
                 Console.WriteLine(tanulokFile[i].nev + "; " + tanulokFile[i].atlag);
             }
             Console.WriteLine();
             Console.ReadKey();
+        }
+
+        public static double Atlagszamitas(TanuloAtlag[] tomb)
+        {
+            double eredmeny = 0;
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                eredmeny += tomb[i].atlag;
+            }
+            return eredmeny / tomb.Length;
+        }
+
+        public static int MinimumSzamitas(TanuloAtlag[] tomb)
+        {
+            double min = tomb[0].atlag;
+            int index = 0;
+            for (int i = 1; i < tomb.Length; i++)
+            {
+                if (tomb[i].atlag < min)
+                {
+                    min = tomb[i].atlag;
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        public static int MaximumSzamitas(TanuloAtlag[] tomb)
+        {
+            double max = tomb[0].atlag;
+            int index = 0;
+            for (int i = 1; i < tomb.Length; i++)
+            {
+                if (tomb[i].atlag > max)
+                {
+                    max = tomb[i].atlag;
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        public static void EvVegiJegyek(TanuloAtlag[] tomb)
+        {
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                double round = Math.Round(tomb[i].atlag);
+                Console.WriteLine("{0} átlaga {1} és év végi jegye {2}", tomb[i].nev, tomb[i].atlag, round);
+            }
         }
 
         /*************************************************************/
@@ -1480,6 +1530,54 @@ namespace Tanfolyam_01
                     }
                 }
             } while (nev != "exit");
+            file.Close();  // file-t minden esetben le kell zárni
+        }
+        public static void TanulokFilebaIratasa()
+        {
+            StreamWriter file = new StreamWriter(@"tanulok.txt"); 
+            string nev, atlag;
+            int mentesSzamlalo = 0;
+            do
+            {
+                Console.WriteLine("Adja meg a következő nevet! (kilépés --> exit)");
+                nev = Console.ReadLine();
+                mentesSzamlalo++;
+                if (nev != "exit")
+                {
+                    Console.WriteLine("Adja meg a tanuló átlagát!");
+                    atlag = Console.ReadLine();
+                    file.WriteLine(nev);
+                    file.WriteLine(atlag);
+                    if (mentesSzamlalo % 5 == 0)  // minden 5. névnél csinálunk egy file-ba kiiratást
+                    {
+                        file.Flush();
+                    }
+                }
+            } while (nev != "exit");
+            file.Close();  // file-t minden esetben le kell zárni
+        }
+        public static void TanulokFilebaIratasaStruct()
+        {
+            TanuloAtlag tanulok;
+            StreamWriter file = new StreamWriter(@"tanulok.txt");
+            int mentesSzamlalo = 0;
+            do
+            {
+                Console.WriteLine("Adja meg a következő nevet! (kilépés --> exit)");
+                tanulok.nev = Console.ReadLine();
+                mentesSzamlalo++;
+                if (tanulok.nev != "exit")
+                {
+                    Console.WriteLine("Adja meg a tanuló átlagát!");
+                    tanulok.atlag = Convert.ToDouble(Console.ReadLine());
+                    file.WriteLine(tanulok.nev);
+                    file.WriteLine(tanulok.atlag);
+                    if (mentesSzamlalo % 5 == 0)  // minden 5. névnél csinálunk egy file-ba kiiratást
+                    {
+                        file.Flush();
+                    }
+                }
+            } while (tanulok.nev != "exit");
             file.Close();  // file-t minden esetben le kell zárni
         }
 
