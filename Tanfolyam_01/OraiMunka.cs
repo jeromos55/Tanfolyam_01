@@ -42,7 +42,7 @@ namespace Tanfolyam_01
             // A megoldas: olyan feladatot adunk a programnak amit nem tud rögtön végrehajtani, így am0g arra var, addig mi el tudjuk olvasni, hogy mi van a konzolon.
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey(); // Beolvasunk tehat a felhasznalotol egy karaktert, mely akkor tud csak tovabb ugrani ha aa felhasznalo lenyomta a gombot, így addig a konyol életben marad.
-        }                            
+        }
         public static void Szamkiiratas()                                      // Szám kiiratás
         {
             /*************************************************************/
@@ -55,7 +55,7 @@ namespace Tanfolyam_01
             Console.WriteLine(szam);                     //Ki: szam
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                         
+        }
         public static void SzamkiiratasJavitvaV1()                             // Szám kiiratás egymásba ágyazással 
         {
             /*************************************************************/
@@ -68,7 +68,7 @@ namespace Tanfolyam_01
             // A programnyelv logikaja megengedi, hogy ha egy valamilyen "funkcionak" olyan adatot adok at, ami valojaban egy masik "funkcionak" az eredmenye, akkor tudja, hogy addig az az adat nem lesz feldolgozhato az elso finkcioban amig a masodik le nem futott. Ezt akarmeddig tudja folytatni....
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                
+        }
         public static void SzamkiiratasJavitvaV2()                             // Szám kiiratás egymásba ágyazással folytatva
         {
             /*************************************************************/
@@ -83,7 +83,7 @@ namespace Tanfolyam_01
             Console.WriteLine(szam);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                
+        }
         public static void SzamkiiratasJavitvaV3()                             // Szám kiiratás egymásba ágyazással folytatva
         {
             /*************************************************************/
@@ -131,7 +131,7 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
 
-        }                     
+        }
         public static void SzamNegyzetKobV2()                                  // Szam négyzetre vagy köbre emelése tenary state (...) ? ... : ...;
         {
 
@@ -145,7 +145,7 @@ namespace Tanfolyam_01
             Console.WriteLine(Math.Pow(szam, (szam % 2 == 0) ? 2 : 3));
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                     
+        }
         public static void Osztalyzatok()                                      // Osztáyzatok kiiratása szövegesen
         {
             /*************************************************************/
@@ -183,7 +183,7 @@ namespace Tanfolyam_01
 
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                         
+        }
         public static void OsszegSzorzat()                                     // Számok összegének és szorzatának kiiratása különböző módokon
         {
             /*************************************************************/
@@ -210,7 +210,7 @@ namespace Tanfolyam_01
 
             Console.WriteLine("\nNyonjon meg egy gombot!");
             Console.ReadKey();
-        }                        
+        }
         public static void ErtekAtadas()                                       // Érték átadás példa
         {
             /*************************************************************/
@@ -225,7 +225,7 @@ namespace Tanfolyam_01
             Console.WriteLine("  Az 'a' változo erteke: {0}, a 'b' valtozo erteke: {1}", a, b);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                          
+        }
         public static void ReferenciaAtadas()                                  // Referencia szerinti atadas
         {
             /*************************************************************/
@@ -243,7 +243,7 @@ namespace Tanfolyam_01
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
 
-        }                     
+        }
         public static void ManualisKlonozas()                                  // Manualis klonozas (egy tömb átmásolása egy másikba)
         {
             /*************************************************************/
@@ -267,7 +267,7 @@ namespace Tanfolyam_01
             Console.WriteLine("Az eredmeny: aTomb[0] = {0}, aTomb[1] = {1}, bTomb[0] = {2}, aTomb[1] = {3}\n", aTomb[0], aTomb[1], bTomb[0], bTomb[1]);
             Console.WriteLine("\nNyomj egy gombot!");
             Console.ReadKey();
-        }                     
+        }
         public static void ReferenciaAtadasString()                            // Ertekatadas pálda egy sztring átadáasa egy metódussal
         {
             /*************************************************************/
@@ -1027,7 +1027,7 @@ namespace Tanfolyam_01
             if (argumentumok.Length == 3)
             {
                 double eredmeny = NegyAlapmuveletMetodus(Convert.ToInt32(argumentumok[0]), Convert.ToInt32(argumentumok[1]), argumentumok[2][0]);
-                if ( double.IsNaN(eredmeny) )
+                if (double.IsNaN(eredmeny))
                 {
                     ConsoleError("A megadott művelet helytelen!");
                 }
@@ -1113,7 +1113,7 @@ namespace Tanfolyam_01
             // Faktorialis kiszamitasa ciklussal
             /*************************************************************/
             int eredmeny = hanyadik;
-            for (hanyadik--;  hanyadik >= 1; hanyadik--)
+            for (hanyadik--; hanyadik >= 1; hanyadik--)
             {
                 eredmeny *= hanyadik;
             }
@@ -1129,7 +1129,7 @@ namespace Tanfolyam_01
                 return hanyadik * FaktorialisRekurziv(hanyadik - 1);
             }
             return 1;
-        } 
+        }
         public static int FaktorialisRekurziv2(int hanyadik)                          // Faktorialis kiszamitasa rekurziv megoldassal egszerubben
         {
             /*************************************************************/
@@ -1191,8 +1191,8 @@ namespace Tanfolyam_01
 
         /*************************************************************/
         // Auto rendszamok kezdete
-        /*************************************************************/        
-  
+        /*************************************************************/
+
         static int AutoKiválaszt(Auto[] autok)                                        // minimum allapot keresese
         {
             int n = autok.Length;  //Az n a tömb mérete
@@ -1419,7 +1419,7 @@ namespace Tanfolyam_01
             file.Close(); // A probléma, hogy tudjuk, hogy hány sor van, de a fájlpointer a fájl végén van addigre, nekünk pedig újra kellene indítanunk az olvasást, tehát lezárjuk a fájlt és ujra megnyitjuk - ekkor a filepointer vissza kerül az elejére
             file = new StreamReader(filenev/*, Encoding.Default*/);           // A .NET alatt futó alap értelmezet kódolást adja mega az Encoding.Default Windows-nál ez UTF-16
             TanuloAtlag[] tanulok = new TanuloAtlag[sorszam / 2];             // Azért kettő mert minden tanulo két sort foglal el
-            for (int i = 0; i < tanulok.Length && ! file.EndOfStream; i++)    // a biztonnság kedvéért a file végét is ellenőrizük de nem szükséges
+            for (int i = 0; i < tanulok.Length && !file.EndOfStream; i++)    // a biztonnság kedvéért a file végét is ellenőrizük de nem szükséges
             {
                 tanulok[i].nev = file.ReadLine();                             // beolvasunk egy sort
                 tanulok[i].atlag = Convert.ToDouble(file.ReadLine());         // beolvasunk egy sort és konvertáljuk
@@ -1435,7 +1435,7 @@ namespace Tanfolyam_01
             for (int i = 0, j = 0; i < tanulok.Length; i++, j += 2)
             {
                 tanulok[i].nev = teljesFileSoronkent[j];
-                tanulok[i].atlag = Convert.ToDouble(teljesFileSoronkent[j + 1]);   
+                tanulok[i].atlag = Convert.ToDouble(teljesFileSoronkent[j + 1]);
             }
             return tanulok;
         }
@@ -1507,6 +1507,17 @@ namespace Tanfolyam_01
             }
         }
 
+        public static void TanulokAtlagMaxMin()
+        {
+            TanuloAtlag[] tanulokFile = SzovegesFajlbolFile("tanulok.txt");
+            Console.WriteLine("A tanulók átlaga: {0}", Atlagszamitas(tanulokFile));
+            int min = MinimumSzamitas(tanulokFile);
+            Console.WriteLine("A legrosszab tanuló: {0}" + " az átlaga {1}", tanulokFile[min].nev, tanulokFile[min].atlag);
+            int max = MaximumSzamitas(tanulokFile);
+            Console.WriteLine("A legjobb tanuló: {0}" + " az átlaga {1}", tanulokFile[max].nev, tanulokFile[max].atlag);
+            EvVegiJegyek(tanulokFile);
+        }
+
         /*************************************************************/
         // Fájl kezelés kiiratás
         /*************************************************************/
@@ -1534,7 +1545,7 @@ namespace Tanfolyam_01
         }
         public static void TanulokFilebaIratasa()
         {
-            StreamWriter file = new StreamWriter(@"tanulok.txt"); 
+            StreamWriter file = new StreamWriter(@"tanulok.txt");
             string nev, atlag;
             int mentesSzamlalo = 0;
             do
@@ -1588,10 +1599,10 @@ namespace Tanfolyam_01
         static string SzovegEkezet(string eredetiSzoveg)
         {
             eredetiSzoveg = eredetiSzoveg.ToLower().Trim();
-            string csereledo = "öüóőúéáűí ", csere = "ouooueaui_";
-            for (int i = 0; i < csereledo.Length; i++)
+            string cserelendo = "öüóőúéáűí ", csere = "ouooueaui_";
+            for (int i = 0; i < cserelendo.Length; i++)
             {
-                eredetiSzoveg = eredetiSzoveg.Replace(csereledo[i], csere[i]);
+                eredetiSzoveg = eredetiSzoveg.Replace(cserelendo[i], csere[i]);
             }
             return eredetiSzoveg;
         }
@@ -1601,5 +1612,165 @@ namespace Tanfolyam_01
             Console.WriteLine(SzovegEkezet(Console.ReadLine()));
             Console.ReadKey();
         }
+
+        /*************************************************************/
+        // Versenyző adatainak rendezése
+        /*************************************************************/
+
+        struct Versenyzo
+        {
+            public string nev, versenyzoAzonosito;
+            public int pont;
+        }
+
+        //TODO: Menü és kezelése
+        static char Menukezeles()
+        {
+            Console.Clear();
+            Console.WriteLine("Valassszon az alabbi opciok kozul:\n\t" +
+                "L - a versenyzok listaja pontszam szerint rendezve\n\t" +
+                "D - Dobogos versenyzok\n\t" +
+                "A - Atlagos ponntszam\n\t" +
+                "K - Kilepes");
+            return Console.ReadKey(true).KeyChar.ToString().ToLower()[0]; // a karakter kisbetusitese es bekerese, ReadKey(true) akkor nem jeleniti meg a beolvasot karaktert
+        }
+        //TODO: Rendezés -visszafele rendezes
+        static void MaximumKivalasztasosRendezes(Versenyzo[] versenyzok)
+        {
+            for (int i = 0; i < versenyzok.Length - 1; i++)
+            {
+                int max = i;
+                for (int j = + 1; j < versenyzok.Length; j++)
+                {
+                    if (versenyzok[j].pont > versenyzok[max].pont)
+                    {
+                        max = j;
+                    }                  
+                }
+                if (max != i)
+                {
+                    Versenyzo csere = versenyzok[i];
+                    versenyzok[i] = versenyzok[max];
+                    versenyzok[max] = csere;
+                }
+            }
+        }
+        //TODO: Bekérés
+
+        static Versenyzo VersenyzoBekerese()
+        {
+            Versenyzo bekert;
+            Console.WriteLine("Adja meg a versenyzo nevet!");
+            bool voltMarBekeres = false;
+            do
+            {
+                if (voltMarBekeres)
+                {
+                    Hibakiiras("A versenyzo neve nem lehet ures!");
+                }
+                bekert.nev = Console.ReadLine();
+                voltMarBekeres = true;
+            } while (string.IsNullOrWhiteSpace(bekert.nev));
+
+            voltMarBekeres = false;
+            Console.WriteLine("Adja meg a versenyzo azonositojat!");
+            do
+            {
+                if (voltMarBekeres)
+                {
+                    Hibakiiras("A versenyzo azonositoja nem lehet ures!");
+                }
+                bekert.versenyzoAzonosito = Console.ReadLine();
+                voltMarBekeres = true;
+            } while (string.IsNullOrWhiteSpace(bekert.versenyzoAzonosito));
+
+            Console.WriteLine("Adja meg a versenyzo pontjat!");
+            voltMarBekeres = false;
+            do
+            {
+                if (voltMarBekeres)
+                {
+                    Hibakiiras("A versenyzo pontja minimum nulla kell legyen!");
+                }
+                bekert.pont = Convert.ToInt32(Console.ReadLine());
+                voltMarBekeres = true;
+            } while (bekert.pont < 0);
+            Console.Clear();
+            return bekert;
+        }
+
+        //TODO: Hiba kiiratása
+        static void Hibakiiras(string szoveg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(szoveg);
+            Console.ResetColor();
+        }
+        //TODO: Átlagszáítás
+
+        static double AtlagPontszam(Versenyzo[] versenyzok)
+        {
+            double atlag = 0;
+            for (int i = 0; i < versenyzok.Length; i++)
+            {
+                atlag += versenyzok[i].pont;
+            }
+            return atlag /= versenyzok.Length;
+        }
+
+        //TODO: tomb kiirato megoldasaa
+
+        static void TombKiiratas(Versenyzo[] versenyzok, int dobogosSzam) // ha 0 akkor mindet listazza ha nem akkor annyit amennyi meg van adva
+        {
+            int zaroIndex = versenyzok.Length - 1;
+            if (dobogosSzam > 0 && dobogosSzam < zaroIndex)
+            {
+                zaroIndex = dobogosSzam;
+            }
+            for (int i = 0; i <= zaroIndex; i++)
+            {
+                Console.WriteLine(versenyzok[i].nev + " - " + versenyzok[i].pont + " - " + versenyzok[i].versenyzoAzonosito);
+            }
+        }
+
+        public static void VersenyzokRendezes()
+        {
+            Console.WriteLine("Adja meg, hogy hany versenyzo lesz!");
+            Versenyzo[] jatekosok = new Versenyzo[Convert.ToInt32(Console.ReadLine())];
+            for (int i = 0; i < jatekosok.Length; i++)
+            {
+                jatekosok[i] = VersenyzoBekerese();
+            }
+            MaximumKivalasztasosRendezes(jatekosok);
+            char menuOpcio ;
+            do
+            {               
+                menuOpcio = Menukezeles();
+                switch (menuOpcio)
+                {
+                    case 'l':
+                        TombKiiratas(jatekosok, 0);
+                        break;
+                    case 'd':
+                        TombKiiratas(jatekosok, 2); // 0 index-tol a 2 a harmadik
+                        break;
+                    case 'a':
+                        Console.WriteLine("A megadott versenyzok atlagos pontszama: " + AtlagPontszam(jatekosok));
+                        break;
+                    case 'k':
+                        // kilepes
+                        break;
+                    default:
+                        Hibakiiras("A keresett funkcio nem letzik!");
+                        break;
+                }
+                if (menuOpcio != 'k')
+                {
+                    Console.WriteLine("A folytatashoz nyomjon egy gombot!");
+                    Console.ReadKey();
+                }
+            } while (menuOpcio != 'k');
+        }
+
     }
 }
