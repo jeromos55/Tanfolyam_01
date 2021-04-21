@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Tanfolyam_01
 {
@@ -1770,6 +1771,59 @@ namespace Tanfolyam_01
                     Console.ReadKey();
                 }
             } while (menuOpcio != 'k');
+        }
+
+        /*************************************************************/
+        // CSV Beléptetés
+        /*************************************************************/
+
+        static string SHA256(string szoveg)
+        {
+            //// Szöveget át kell konvertálni bájtra
+            //byte[] szovegBajtban = Encoding.UTF8.GetBytes(szoveg);
+            //// Implementáljuk a titkosítót
+            //SHA256CryptoServiceProvider titkosito = new SHA256CryptoServiceProvider();
+            //// titkosítás...
+            //byte[] titkosSzovegBajtban = titkosito.ComputeHash(szovegBajtban);
+            //// Hexa konvertálás kell
+            //string titkosSzoveg = BitConverter.ToString(titkosSzovegBajtban).ToLower().Replace("-", "");
+            //return titkosSzoveg;
+
+            return BitConverter.ToString(new SHA256CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(szoveg))).ToLower().Replace("-", "");
+        }
+
+        //TODO: Jelszó bekérése
+
+        static string JelszóBekeres()
+        {
+            Console.ForegroundColor = Console.BackgroundColor;
+            string jelszó = SHA256(Console.ReadLine());
+            Console.ResetColor();
+            return jelszó;
+        }
+
+        //TODO: CS-ben keresés
+
+        static bool CSVKereses(string felhasznalonev, string titkosJelszó)
+        {
+            StreamReader reader = new StreamReader(@"login.csv");
+            bool belepve = false;
+            while (!reader.EndOfStream)
+            {
+                string[] csvDaraboltSor = reader.ReadLine().Split(';');
+                if (csvDaraboltSor[0] == felhasznalonev && csvDaraboltSor[1] == titkosJelszó)
+                {
+                    belepve = true;
+                }
+            }
+            reader.Close();
+            return belepve;
+        }
+
+        public static void CSVBeleptetes()
+        {
+            Console.WriteLine("Adja meg a felhasznalónevét");
+            // Eddig jutottam
         }
 
     }
