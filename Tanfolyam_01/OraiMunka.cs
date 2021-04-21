@@ -1777,7 +1777,7 @@ namespace Tanfolyam_01
         // CSV Beléptetés
         /*************************************************************/
 
-        static string SHA256(string szoveg)
+        public static string SHA256(string szoveg)
         {
             //// Szöveget át kell konvertálni bájtra
             //byte[] szovegBajtban = Encoding.UTF8.GetBytes(szoveg);
@@ -1823,7 +1823,20 @@ namespace Tanfolyam_01
         public static void CSVBeleptetes()
         {
             Console.WriteLine("Adja meg a felhasznalónevét");
-            // Eddig jutottam
+            string fnev = Console.ReadLine();
+            Console.WriteLine("Adja meg a jelszavát!");
+            string titkosJelszó = JelszóBekeres();
+            if (CSVKereses(fnev, titkosJelszó))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Sikeres belépés!");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Hibás felhasználónév / jelszó!");
+            }
+            Console.ReadKey();
         }
 
     }

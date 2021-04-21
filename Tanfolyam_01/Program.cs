@@ -165,7 +165,14 @@ namespace Tanfolyam_01
             /*************************************************************/
             // Vesrenyzok listazasa es rendezese helyzetek és pontszám szerint
             /*************************************************************/
-            OraiMunka.VersenyzokRendezes();
+            //OraiMunka.VersenyzokRendezes();
+
+            /*************************************************************/
+            // Baléptető rendszer készítése
+            /*************************************************************/
+
+            //OraiMunka.CSVBeleptetes(); // jakab, 123456aA, ica, 123456aB, geza, 123456aC
+            //Console.WriteLine(OraiMunka.SHA256("jakab")); // sha256 jelszó kódólás kiiratása
 
             Console.ReadKey();
         }
