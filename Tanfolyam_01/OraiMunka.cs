@@ -1641,12 +1641,12 @@ namespace Tanfolyam_01
             for (int i = 0; i < versenyzok.Length - 1; i++)
             {
                 int max = i;
-                for (int j = + 1; j < versenyzok.Length; j++)
+                for (int j = +1; j < versenyzok.Length; j++)
                 {
                     if (versenyzok[j].pont > versenyzok[max].pont)
                     {
                         max = j;
-                    }                  
+                    }
                 }
                 if (max != i)
                 {
@@ -1743,9 +1743,9 @@ namespace Tanfolyam_01
                 jatekosok[i] = VersenyzoBekerese();
             }
             MaximumKivalasztasosRendezes(jatekosok);
-            char menuOpcio ;
+            char menuOpcio;
             do
-            {               
+            {
                 menuOpcio = Menukezeles();
                 switch (menuOpcio)
                 {
@@ -1794,12 +1794,60 @@ namespace Tanfolyam_01
 
         //TODO: Jelszó bekérése
 
-        static string JelszóBekeres()
+        static string JelszoBekeres()
         {
             Console.ForegroundColor = Console.BackgroundColor;
             string jelszó = SHA256(Console.ReadLine());
             Console.ResetColor();
             return jelszó;
+        }
+
+        static string JelszoBekeresBitonságosabb()
+        {
+            string jelszo = "";
+            char jelenlegi;
+            do
+            {
+                jelenlegi = Console.ReadKey(true).KeyChar;
+                if (jelenlegi == 8 && jelszo.Length > 0)  //ASCII(8) = Backspace
+                {
+                    jelszo = jelszo.Remove(jelszo.Length - 1);
+                    // Ha van kiiratás
+                    //Console.Write("\b");
+                    Console.CursorLeft--; //megadja hogy balra hányadik karakternél áll a kurzor
+                    Console.Write(" "); // Kiirunk egy szóközt (annak a helyére amin eddig áltunk)
+                    Console.CursorLeft--; // Újfent visszalépünk egyet, így egyel kevesebb karakterből áll a jelszó vizuálisan
+                }
+                else if (jelenlegi >= 32) // a space vagy annál nagyobb helyen lévő karakter - a space alatt vezérlő karakterek vannak
+                {
+                    jelszo += jelenlegi;
+                    // ha vna kiiratás
+                    Console.Write("*");
+                }
+            } while (jelenlegi != 13);
+            Console.WriteLine();
+            return SHA256(jelszo);
+        }
+
+        static string JelszoBekeresLinux()
+        {
+            string jelszo = "";
+            char jelenlegi;
+            do
+            {
+                jelenlegi = Console.ReadKey(true).KeyChar;
+                if (jelenlegi == 8 && jelszo.Length > 0)
+                {
+                    jelszo = jelszo.Remove(jelszo.Length - 1);
+                }
+                else if (jelenlegi >= 32)
+                {
+                    jelszo += jelenlegi;
+                    Console.Write("*");
+                }
+            } while (jelenlegi != 13);
+            Console.WriteLine();
+            return SHA256(jelszo);
         }
 
         //TODO: CS-ben keresés
@@ -1825,7 +1873,9 @@ namespace Tanfolyam_01
             Console.WriteLine("Adja meg a felhasznalónevét");
             string fnev = Console.ReadLine();
             Console.WriteLine("Adja meg a jelszavát!");
-            string titkosJelszó = JelszóBekeres();
+            //string titkosJelszó = JelszoBekeres();
+            //string titkosJelszó = JelszoBekeresBitonságosabb();
+            string titkosJelszó = JelszoBekeresLinux();
             if (CSVKereses(fnev, titkosJelszó))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -1837,6 +1887,169 @@ namespace Tanfolyam_01
                 Console.WriteLine("Hibás felhasználónév / jelszó!");
             }
             Console.ReadKey();
+        }
+
+        /*************************************************************/
+        // Tanulo átlag CSV-vel fájlba iratássa
+        /*************************************************************/
+
+        struct TanuloCSV
+        {
+            public string nev;
+            public double atlag;
+
+            public string CSVFormatum()
+            {
+                return $"{nev};{atlag}";
+                //return atlag + "";  // az atlag át konvertálódik szöveggé és így kerül vissza adásra
+            }
+        }
+
+        public static void TanuloAtlagCSV()
+        {
+            TanuloCSV jelenlegi;
+            StreamWriter writer = new StreamWriter(@"tanulo.csv", false, Encoding.Default); // false mert felül íras és Encoding.Default hogy az operációs rendszer karakter kódolására állítsa be
+            //StreamWriter writer = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+ @"\tanulokcsv"); // a desktopra etszi ki a fájlt
+            do
+            {
+                Console.WriteLine("Adja meg a következő tanuló nevét!");
+                jelenlegi.nev = Console.ReadLine();
+                if (jelenlegi.nev.ToLower().Trim() != "exit")
+                {
+                    Console.WriteLine("Adja meg a tanuló ({0}) átlagát", jelenlegi.nev);
+                    jelenlegi.atlag = Convert.ToDouble(Console.ReadLine());
+                    writer.WriteLine(jelenlegi.CSVFormatum());
+                }
+            } while (jelenlegi.nev.ToLower().Trim() != "exit");
+            writer.Close();
+        }
+
+        /*************************************************************/
+        // Fájl kezelő program
+        /*************************************************************/
+
+        static string KerdesValasz(string kerdes, string[] valasz)
+        {
+            Console.WriteLine(kerdes);
+            string valaszKV;
+            bool voltMarBekeres = false;
+            do
+            {
+                if (voltMarBekeres)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("A válasz nem elfogadható");
+                    Console.ReadLine();
+                }
+                valaszKV = Console.ReadLine();
+                voltMarBekeres = true;
+            } while (!valaszKV.Contains(valaszKV));  // A Contais megadja, hogy az adott tömbben van-e olyan elem - eldöntés tétel
+            return valaszKV;
+        }
+
+        // TODO: Fájl másoló
+
+        static void FajlMasolo()
+        {
+            Console.WriteLine("Adja meg, hogy melyik fájlt másoljuk!");
+            string forras = Console.ReadLine();
+            if (File.Exists(forras))
+            {
+                Console.WriteLine("Adja meg, hogy hova másoljuk a forrást!");
+                string celfajl = Console.ReadLine();
+                if (File.Exists(celfajl))
+                {
+                    string valasz = KerdesValasz("A cél fájl már létezik. Felülírjuk?", new string[] { "i", "n" });
+                    if (valasz == "n")
+                    {
+                        return;
+                    }
+                }
+                File.Copy(forras, celfajl, true);
+                Console.WriteLine("A másolás sikeres!");
+            }
+            else
+            {
+                Console.WriteLine("A forrás nem létezik");
+            }
+        }
+
+        // TODO: Fájl felovasó
+
+        static void FajlFelolvaso()
+        {
+            Console.WriteLine("Adja meg, hogy melyik fájlt olvassuk be!");
+            string forras = Console.ReadLine();
+            if (File.Exists(forras))
+            {
+                StreamReader reader = new StreamReader(forras);
+                while (!reader.EndOfStream)
+                {
+                    Console.WriteLine(reader.ReadLine());
+                }
+                reader.Close();
+                Console.WriteLine("----EOF---");
+            }
+            else
+            {
+                Console.WriteLine("A megadott fájl nem található!");
+            }
+        }
+
+        // TODO: Fálba író;
+        static void FajlbaIro()
+        {
+            Console.WriteLine("Adja meg, hogy  mi legyen a fájl tartalma!");
+            string tartalom = Console.ReadLine();
+            Console.WriteLine("Adja meg a mentés helyét!");
+            string celfajl = Console.ReadLine();
+            string opcio = "o";
+            if (File.Exists(celfajl))
+            {
+                opcio = KerdesValasz("A megadott célfájl létezik, felülírjuk (o), folytassuk (a), vagy szakítsuk meg a műveletet (c)? [o/a/c]", new string[] { "o", "a", "c"});
+                if (opcio == "c")
+                {
+                    return;
+                }
+            }
+            StreamWriter writer = new StreamWriter(celfajl, opcio == "a");
+            writer.WriteLine(tartalom);
+            writer.Close();
+        }
+
+        // TODO: Menu
+
+        static string MenuKiiras()
+        {
+            Console.Clear();
+            return KerdesValasz("Válaszon az alábbi opciók közül:\nC - Fájl másolása\nO - Fájl megnyitása\nS - Fájl létrehozása / metése\nE - Kilépés", new string[] { "c", "o", "s", "e" });
+        }
+
+        public static void FajlKezelo()
+        {
+            string opcio;
+            do
+            {
+                opcio = MenuKiiras();
+                switch (opcio)
+                {
+                    case "c":
+                        FajlMasolo();
+                        break;
+                    case "o":
+                        FajlFelolvaso();
+                        break;
+                    case "s":
+                        FajlbaIro();
+                        break;
+                }
+                if (opcio != "e")
+                {
+                    Console.WriteLine("A folytatáshoz nyomjon egy gombot!");
+                    Console.ReadKey();
+                }
+
+            } while (opcio != "e");
         }
 
     }

@@ -154,25 +154,19 @@ namespace Tanfolyam_01
             //OraiMunka.TanulokFislebaIratasa();
             //OraiMunka.SzovegEkezetMentesito();
 
-            /*************************************************************/
-            // tanulok.txt létrehozás és ujból beolvasaása 
-            // majd átlag és min és max kiiratása
-            /*************************************************************/
+            //OraiMunka.TanulokFilebaIratasaStruct();                             // tanulok.txt létrehozás és ujból beolvasaása majd átlag és min és max kiiratása
+            //OraiMunka.TanulokAtlagMaxMin();                                     // tanulok átlaga, maximuma és minmuma
 
-            //OraiMunka.TanulokFilebaIratasaStruct(); 
-            //OraiMunka.TanulokAtlagMaxMin();
+            //OraiMunka.VersenyzokRendezes();                                     // Vesrenyzok listazasa es rendezese helyzetek és pontszám szerint
 
-            /*************************************************************/
-            // Vesrenyzok listazasa es rendezese helyzetek és pontszám szerint
-            /*************************************************************/
-            //OraiMunka.VersenyzokRendezes();
+            //OraiMunka.CSVBeleptetes();                                          // Baléptető rendszer készítése jakab, 123456aA, ica, 123456aB, geza, 123456aC
+            //Console.WriteLine(OraiMunka.SHA256("jakab"));                       // sha256 jelszó kódólás kiiratása
 
-            /*************************************************************/
-            // Baléptető rendszer készítése
-            /*************************************************************/
+            //SajatProgramok.SorsolasStatisztika();                              // Lotoszám Statisztika
 
-            //OraiMunka.CSVBeleptetes(); // jakab, 123456aA, ica, 123456aB, geza, 123456aC
-            //Console.WriteLine(OraiMunka.SHA256("jakab")); // sha256 jelszó kódólás kiiratása
+            //OraiMunka.TanuloAtlagCSV();                                          // CVS fájlba írása
+
+            OraiMunka.FajlKezelo();
 
             Console.ReadKey();
         }

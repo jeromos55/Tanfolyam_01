@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Tanfolyam_01
 {
@@ -84,8 +86,8 @@ namespace Tanfolyam_01
             }
 
             Console.WriteLine("Ihat alkoholt\n");
-            return ;
- 
+            return;
+
         }
 
         /*************************************************************/
@@ -151,5 +153,79 @@ namespace Tanfolyam_01
 
             Console.ReadKey();
         }
+
+        /*************************************************************/
+        // Lotoszám Statisztika
+        /*************************************************************/
+
+        static int MaximumKivalasztas(int[] tomb)
+        {
+            int max = tomb[0], index = 0;
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                if (tomb[i] > max)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        static int MinimumKivalasztas(int[] tomb)
+        {
+            int min = tomb[0], index = 0;
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                if (tomb[i] < min)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        static double Atlag(int[] tomb)
+        {
+            double atlag = 0;
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                atlag += tomb[i];
+            }
+            return (atlag / tomb.Length);
+        }
+
+        static void CSVKereses(string fileName, int[] sorsolasStatisztika)
+        {
+            int index = 0;
+            StreamReader reader = new StreamReader(fileName);
+            while (!reader.EndOfStream)
+            {
+                index++;
+                string[] csvDaraboltSor = reader.ReadLine().Split(';');
+                Console.Write("A lottó számok: {0}. - ", index);
+                for (int i = csvDaraboltSor.Length - 1; i >= csvDaraboltSor.Length - 5; i--)
+                {
+                    sorsolasStatisztika[Convert.ToInt32(csvDaraboltSor[i]) - 1]++;
+                    Console.Write(csvDaraboltSor[i] + " ");
+                }
+                Console.Write("\n");
+            }
+            reader.Close();
+        }
+
+        public static void SorsolasStatisztika()
+        {
+            int[] sorsolasStatisztika = new int[90];
+            int max, min;
+            double atlag;
+            CSVKereses("otos.csv", sorsolasStatisztika);
+            max = MaximumKivalasztas(sorsolasStatisztika);
+            Console.WriteLine(" 1956 és 2021 között a legtöbbet kihúzott szám a {0} és {1} előfrodulása volt.", max + 1, sorsolasStatisztika[max]);
+            min = MinimumKivalasztas(sorsolasStatisztika);
+            Console.WriteLine(" 1956 és 2021 között a legkevesebbet kihúzott szám a {0} és {1} előfrodulása volt.", min - 1, sorsolasStatisztika[min]);
+            atlag = Atlag(sorsolasStatisztika);
+            Console.WriteLine(" 1956 és 2021 közötti számok átlagosan {0}-szor jelentek meg.", atlag);
+        }
+
     }
 }
