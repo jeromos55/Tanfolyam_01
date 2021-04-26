@@ -1928,10 +1928,10 @@ namespace Tanfolyam_01
         // Fájl kezelő program
         /*************************************************************/
 
-        static string KerdesValasz(string kerdes, string[] valasz)
+        static string KerdesValasz(string kerdes, string[] valaszok)
         {
             Console.WriteLine(kerdes);
-            string valaszKV;
+            string valasz;
             bool voltMarBekeres = false;
             do
             {
@@ -1941,10 +1941,10 @@ namespace Tanfolyam_01
                     Console.WriteLine("A válasz nem elfogadható");
                     Console.ReadLine();
                 }
-                valaszKV = Console.ReadLine();
+                valasz = Console.ReadLine();
                 voltMarBekeres = true;
-            } while (!valaszKV.Contains(valaszKV));  // A Contais megadja, hogy az adott tömbben van-e olyan elem - eldöntés tétel
-            return valaszKV;
+            } while (!valaszok.Contains(valasz));  // A Contais megadja, hogy az adott tömbben van-e olyan elem - eldöntés tétel
+            return valasz;
         }
 
         // TODO: Fájl másoló
@@ -2051,6 +2051,87 @@ namespace Tanfolyam_01
 
             } while (opcio != "e");
         }
+
+        /*************************************************************/
+        // Egyszerü szövegszerkesztő program
+        /*************************************************************/
+
+        //static string KerdesValasz(string kerdes, string[] valaszok)
+        //{
+        //    Console.WriteLine(kerdes);
+        //    string valasz;
+        //    bool voltMarBekeres = false;
+        //    do
+        //    {
+        //        if (voltMarBekeres)
+        //        {
+        //            Console.ForegroundColor = ConsoleColor.Red;
+        //            Console.WriteLine("A válasz nem elfogadható");
+        //            Console.ResetColor();
+        //        }
+        //        valasz = Console.ReadLine();
+        //        voltMarBekeres = true;
+        //    } while (!valaszok.Contains(valasz));
+        //    return valasz;
+        //}
+
+        static void Kiiratas(string celFajl, string szovegSor, bool opcio)
+        {
+            StreamWriter writer = new StreamWriter(celFajl, opcio);
+            do
+            {
+                szovegSor = Console.ReadLine();
+                if (szovegSor != "vege")
+                {
+                    writer.WriteLine(szovegSor);
+                }
+            } while (szovegSor != "vege");
+            writer.Close();
+        }
+
+        static void Beolvasas(string celFajl)
+        {
+            StreamReader reader = new StreamReader(celFajl);
+            while (!reader.EndOfStream)
+            {
+                Console.WriteLine(reader.ReadLine());
+            }
+            reader.Close();
+        }
+
+        public static void EgyszeruSzovegSzerkeszto()
+        {
+            string ujra = "";
+            Console.WriteLine("Egyszeru szoveg szerkeszto program\n");
+            do
+            {
+                Console.Clear();
+                string szovegSor = "", opcio = "o";
+                Console.WriteLine("Adja meg szoveg nevet");
+                string celFajl = Console.ReadLine();
+                if (File.Exists(celFajl))
+                {
+                    opcio = KerdesValasz("A megadott célfájl létezik, felülírjuk (o), folytassuk (a), vagy szakítsuk meg a műveletet (c)? [o/a/c]", new string[] { "o", "a", "c" });
+                    if (opcio == "c")
+                    {
+                        continue;
+                    }
+                }
+                if (opcio == "a")
+                {
+                    Console.WriteLine("Kerem folytassa a szoveget ha vegzet az utolso sorba irja be, hogy \"vege\"!");
+                    Beolvasas(celFajl);
+                    Kiiratas(celFajl, szovegSor, true);
+                }
+                else if (opcio == "o")
+                {
+                    Console.WriteLine("Ija be a szoveget ha vegzet az utolso sorba irja be, hogy \"vege\"!");
+                    Kiiratas(celFajl, szovegSor, false);
+                }
+                ujra = KerdesValasz("Szeretne masik fajlt szerkeszteni? (i/n)", new string[] { "i", "n" });
+            } while (ujra == "i");
+        }
+
 
     }
 }

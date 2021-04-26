@@ -166,7 +166,9 @@ namespace Tanfolyam_01
 
             //OraiMunka.TanuloAtlagCSV();                                          // CVS fájlba írása
 
-            OraiMunka.FajlKezelo();
+            //OraiMunka.FajlKezelo();
+
+            OraiMunka.EgyszeruSzovegSzerkeszto();
 
             Console.ReadKey();
         }
