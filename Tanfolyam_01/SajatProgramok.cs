@@ -166,6 +166,7 @@ namespace Tanfolyam_01
                 if (tomb[i] > max)
                 {
                     index = i;
+                    max = tomb[i];
                 }
             }
             return index;
