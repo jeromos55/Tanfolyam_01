@@ -2132,6 +2132,90 @@ namespace Tanfolyam_01
             } while (ujra == "i");
         }
 
+        /*************************************************************/
+        // Idő és dátum kezelése
+        /*************************************************************/
+
+        public static void DateAndTime()
+        {
+            Console.Clear();
+            DateTime datum1 = new DateTime(2021, 4, 27);
+            //DateTime datum2 = new DateTime(2021, 4, 27, 40, 30);
+            DateTime[] datumok = new DateTime[10];
+            datumok[0] = DateTime.MinValue;
+            datumok[1] = DateTime.Now;
+            datumok[2] = DateTime.UtcNow;
+            datumok[3] = DateTime.Today;
+            datumok[4] = Convert.ToDateTime("2021.04.27");
+            datumok[5] = DateTime.Parse("2021.04.27");
+            for (int i = 0; i <= 5; i++)
+            {
+                Console.WriteLine(datumok[i]);
+            }
+            Console.Write("\n" + datum1 + " " + datum1.DayOfWeek + " " + datum1.DayOfYear + "\n");
+            Console.WriteLine(datum1.Year);
+            Console.WriteLine(datum1.AddHours(2.5));
+            datum1 = datum1.AddHours(-3);
+            Console.WriteLine(datum1);
+            Console.WriteLine(DateTime.Parse("2021.04.27") < DateTime.Now);
+            TimeSpan karácsonyig = DateTime.Parse("2021.12.25") - DateTime.Now;
+            Console.WriteLine("Karácsonyig {0} idő van még hátra!", karácsonyig);
+            Console.WriteLine(datum1.ToShortDateString());
+            Console.WriteLine(datum1.ToLongDateString());
+        }
+
+        /*************************************************************/
+        // Save CSV file from user input with time and date
+        /*************************************************************/
+
+        struct NevCSV
+        {
+            public string nev;
+            public string születésiDatum;
+            public string szuletesiHely;
+        }
+
+        static void NevekCSV(NevCSV[] tomb)
+        {
+            StreamWriter writer = new StreamWriter(@"nevek.csv", false, Encoding.Default);
+            writer.WriteLine("Vezetéknév;Keresztnév;Születési év;hónap;nap;Születési hely");
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                string szoveg = tomb[i].nev, sor = "";
+                string[] splitSzoveg = szoveg.Split(' ');
+                for (int j = 0; j < splitSzoveg.Length; j++)
+                {
+                    sor += $"{splitSzoveg[j]};";
+                }
+                DateTime szovegDateTime = Convert.ToDateTime(tomb[i].születésiDatum);
+                sor += $"{szovegDateTime.ToString("yyyy")};";
+                sor += $"{szovegDateTime.ToString("MMMM")};";
+                sor += $"{szovegDateTime.ToString("dd")};";
+                sor += tomb[i].szuletesiHely;
+                writer.WriteLine(sor);
+            }
+            writer.Close();
+        }
+
+        public static void SaveNevekCSV()
+        {
+            Console.WriteLine("Adja meg hány nevet szeretne rözíteni!");
+            int dararbSzam = Convert.ToInt32(Console.ReadLine());
+            NevCSV[] Nevek = new NevCSV[dararbSzam];
+            for (int i = 0; i < Nevek.Length; i++)
+            {
+                Console.WriteLine("Adja meg a teljes nevet!");
+                Nevek[i].nev = Console.ReadLine();
+                Console.WriteLine("Adja meg a születési dátumot! (YYYY-MM-DD)");
+                Nevek[i].születésiDatum = Console.ReadLine();
+                Console.WriteLine("Adja meg a születési Helyet!");
+                Nevek[i].szuletesiHely = Console.ReadLine();
+                Console.Clear();
+            }
+
+            NevekCSV(Nevek);
+            Console.ReadKey();
+        }
 
     }
 }

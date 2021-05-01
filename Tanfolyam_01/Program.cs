@@ -168,7 +168,11 @@ namespace Tanfolyam_01
 
             //OraiMunka.FajlKezelo();
 
-            OraiMunka.EgyszeruSzovegSzerkeszto();
+            //OraiMunka.EgyszeruSzovegSzerkeszto();
+
+            //OraiMunka.DateAndTime();
+
+            OraiMunka.SaveNevekCSV();
 
             Console.ReadKey();
         }
