@@ -258,5 +258,41 @@ namespace Tanfolyam_01
                 Console.Write("{0} ", t[i]);
             Console.WriteLine();
         }   //TODO -- komentezni, kiiratas
+        public static void CseresrendezesList(List<string> downlistbox)                // Cseres rendezés listákkal
+        {
+            foreach (string d in downlistbox)
+            {
+                Console.WriteLine(d);
+            }
+
+            Console.WriteLine();
+
+            List<string> idlist = new List<string>();
+
+            foreach (string s in downlistbox)
+                idlist.Add(s);
+
+            int n = idlist.Count;
+
+            //Cserés rendezés
+            for (int i = 0; i < n - 1; i++)
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (Convert.ToInt32(idlist[i].Split('.')[0]) > Convert.ToInt32(idlist[j].Split('.')[0]))
+                    {
+                        string swap = idlist[j];
+                        idlist[j] = idlist[i];
+                        idlist[i] = swap;
+                    }
+                }
+            downlistbox.Clear();
+
+            downlistbox.AddRange(idlist.ToArray());
+
+            foreach (string d in downlistbox)
+            {
+                Console.WriteLine(d);
+            }
+        }     
     }
 }

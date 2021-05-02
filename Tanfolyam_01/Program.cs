@@ -172,7 +172,17 @@ namespace Tanfolyam_01
 
             //OraiMunka.DateAndTime();
 
-            OraiMunka.SaveNevekCSV();
+            // OraiMunka.SaveNevekCSV();
+
+            List<string> numbers = new List<string>
+            {
+                "1.23",
+                "56.78",
+                "43.21",
+                "8.765",
+                "67.89"
+            };
+            Rendezesek.CseresrendezesList(numbers);
 
             Console.ReadKey();
         }
