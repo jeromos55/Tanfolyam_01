@@ -1928,6 +1928,8 @@ namespace Tanfolyam_01
         // Fájl kezelő program
         /*************************************************************/
 
+
+
         static string KerdesValasz(string kerdes, string[] valaszok)
         {
             Console.WriteLine(kerdes);
@@ -2052,9 +2054,11 @@ namespace Tanfolyam_01
             } while (opcio != "e");
         }
 
+
         /*************************************************************/
         // Egyszerü szövegszerkesztő program
         /*************************************************************/
+
 
         //static string KerdesValasz(string kerdes, string[] valaszok)
         //{
@@ -2132,6 +2136,7 @@ namespace Tanfolyam_01
             } while (ujra == "i");
         }
 
+
         /*************************************************************/
         // Idő és dátum kezelése
         /*************************************************************/
@@ -2167,6 +2172,7 @@ namespace Tanfolyam_01
         /*************************************************************/
         // Save CSV file from user input with time and date
         /*************************************************************/
+
 
         struct NevCSV
         {
@@ -2216,6 +2222,7 @@ namespace Tanfolyam_01
             NevekCSV(Nevek);
             Console.ReadKey();
         }
+
 
     }
 }
