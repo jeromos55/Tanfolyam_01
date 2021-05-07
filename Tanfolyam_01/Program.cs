@@ -184,6 +184,8 @@ namespace Tanfolyam_01
             //};
             //Rendezesek.CseresrendezesList(numbers);
 
+            
+
             Console.ReadKey();
         }
     }
